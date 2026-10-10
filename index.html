@@ -5,9 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vu Xuan Toan Tech — Intelligent AI Warehouse Management & Logistics</title>
   <meta name="description" content="Vu Xuan Toan Tech powers intelligent warehouse operations with Claude AI. Conversational data insights, automated stock auditing, and mobile real-time tracking.">
-  <meta name="keywords" content="Vu Xuan Toan, Vu Xuan Toan Tech, AI Warehouse, Logistics AI, Claude 3.5 Sonnet, Supply Chain Intelligence, WMS Vietnam">
+  <!-- Favicon for Google Search Snippets & Browsers -->
+  <link rel="icon" type="image/svg+xml" href="https://vuxuantoan.me/favicon.svg">
+  <link rel="alternate icon" href="https://vuxuantoan.me/favicon.svg">
+  <link rel="apple-touch-icon" href="https://vuxuantoan.me/og-image.svg">
+
+  <meta name="keywords" content="Vu Xuan Toan, Vũ Xuân Toàn, Vu Xuan Toan Tech, AI Warehouse, Logistics AI, Claude 3.5 Sonnet, Supply Chain Intelligence, WMS Vietnam, Kho Hàng Vĩnh Giang, Hệ Thống Quản Lý Kho AI">
   <meta name="author" content="Vu Xuan Toan">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://vuxuantoan.me/">
@@ -23,6 +28,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="vi_VN">
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
@@ -31,23 +37,41 @@
   <meta name="twitter:description" content="Vu Xuan Toan Tech develops next-generation supply chain intelligence systems powered by Claude AI.">
   <meta name="twitter:image" content="https://vuxuantoan.me/og-image.svg">
 
-  <!-- Schema.org Structured Data (JSON-LD) -->
+  <!-- Schema.org Structured Data (JSON-LD) per Google Search Central Guidelines -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Person",
+        "@id": "https://vuxuantoan.me/#person",
+        "name": "Vu Xuan Toan",
+        "alternateName": ["Vũ Xuân Toàn", "vut08905"],
+        "url": "https://vuxuantoan.me/",
+        "jobTitle": "Founder & AI/Logistics Software Engineer",
+        "sameAs": [
+          "https://github.com/vut08905",
+          "https://khohangvinhgiang.io.vn/wms"
+        ]
+      },
+      {
         "@type": "Organization",
         "@id": "https://vuxuantoan.me/#organization",
         "name": "Vu Xuan Toan Tech",
+        "alternateName": ["Vũ Xuân Toàn Tech", "Toan Vu Tech"],
         "url": "https://vuxuantoan.me/",
-        "logo": "https://vuxuantoan.me/og-image.png",
+        "logo": "https://vuxuantoan.me/favicon.svg",
+        "image": "https://vuxuantoan.me/og-image.svg",
         "founder": {
-          "@type": "Person",
-          "name": "Vu Xuan Toan"
+          "@id": "https://vuxuantoan.me/#person"
         },
-        "email": "admin@vuxuantoan.me",
-        "description": "Enterprise warehouse and supply chain intelligence software powered by Claude AI."
+        "email": "vut08905@vuxuantoan.me",
+        "description": "Enterprise warehouse management systems (WMS) and supply chain intelligence software powered by Claude AI.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Hanoi",
+          "addressCountry": "VN"
+        }
       },
       {
         "@type": "WebSite",
@@ -56,7 +80,19 @@
         "name": "Vu Xuan Toan Tech",
         "publisher": {
           "@id": "https://vuxuantoan.me/#organization"
-        }
+        },
+        "inLanguage": ["en", "vi"]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://vuxuantoan.me/#software",
+        "name": "Vinh Giang WMS & Warehouse AI Assistant",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web, iOS, Android",
+        "author": {
+          "@id": "https://vuxuantoan.me/#person"
+        },
+        "description": "Full-stack intelligent warehouse management software with real-time stock auditing and Claude 3.5 Sonnet NL-to-SQL analytics."
       }
     ]
   }
