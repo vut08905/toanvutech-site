@@ -1,0 +1,10 @@
+# robots.txt for https://vuxuantoan.me
+User-agent: *
+Allow: /
+
+# Disallow internal bot and testing folders
+Disallow: /shopee-auto-bot/
+Disallow: /shopee-affiliate-extension/
+
+# Sitemap location
+Sitemap: https://vuxuantoan.me/sitemap.xml
