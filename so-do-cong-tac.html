@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mầm Văn — Sơ đồ cộng tác (mọi người cùng sửa)</title>
+<meta name="description" content="Trang sơ đồ luồng Mầm Văn dạng cộng tác: mọi người cùng xem, sửa luồng, gắn ảnh và bình luận — đồng bộ ngay lập tức.">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { font-family: system-ui, 'Segoe UI', Roboto, Arial, sans-serif; background: #FAF5EB; color: #2F3E6B; overflow: hidden; }
+  header { height: 54px; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #FFFDF8; border-bottom: 1px solid #E6DCC8; }
+  header h1 { font-size: 15px; margin: 0; white-space: nowrap; }
+  header .sp { flex: 1; }
+  .sync { font-size: 12px; color: #8C7E6A; white-space: nowrap; }
+  .hbtn { font-size: 12px; font-weight: 700; color: #2F3E6B; background: #fff; border: 1px solid #E6DCC8; border-radius: 999px; padding: 6px 11px; cursor: pointer; text-decoration: none; white-space: nowrap; }
+  .hbtn:hover { background: #FAF5EB; }
+  #search { width: 170px; padding: 6px 10px; border: 1px solid #E6DCC8; border-radius: 999px; font-size: 12.5px; outline: none; }
+  #stage { position: absolute; top: 54px; bottom: 0; left: 0; right: 0; overflow: hidden; background: radial-gradient(circle, #EFE6D2 1px, transparent 1px); background-size: 26px 26px; background-color: #FAF5EB; touch-action: none; cursor: grab; }
+  #stage:active { cursor: grabbing; }
+  svg { width: 100%; height: 100%; display: block; }
+  .edge { fill: none; stroke: #B9A888; stroke-width: 1.6; }
+  .rel { fill: none; stroke: #D64545; stroke-width: 1.6; stroke-dasharray: 6 4; opacity: .75; }
+  .rellab { font-size: 11px; fill: #B03A3A; paint-order: stroke; stroke: #FAF5EB; stroke-width: 4; font-weight: 600; }
+  .node { cursor: pointer; }
+  .node rect.box { fill: #FFFDF8; stroke: #CBBFA4; stroke-width: 1.2; }
+  .node.main rect.box { fill: #2F3E6B; stroke: #2F3E6B; }
+  .node.main text { fill: #FFF7E8; }
+  .node text { font-size: 13px; fill: #2F3E6B; font-weight: 600; }
+  .node .badges { font-size: 11px; fill: #B4502A; font-weight: 700; }
+  .node.main .badges { fill: #FFD166; }
+  .node.sel rect.box { stroke: #E2704A; stroke-width: 3; }
+  .node.dim { opacity: .18; }
+  #panel { position: absolute; top: 54px; right: 0; bottom: 0; width: 360px; max-width: 94vw; background: #FFFDF8; border-left: 1px solid #E6DCC8; box-shadow: -6px 0 18px rgba(47,62,107,.08); padding: 14px; overflow-y: auto; display: none; z-index: 5; }
+  #panel.open { display: block; }
+  #panel h2 { font-size: 13px; margin: 16px 0 8px; color: #B4502A; text-transform: uppercase; letter-spacing: .04em; }
+  #panel h2:first-child { margin-top: 0; }
+  #pTitle { width: 100%; font-size: 14.5px; font-weight: 700; color: #2F3E6B; border: 1px solid #E6DCC8; border-radius: 10px; padding: 9px; resize: vertical; min-height: 44px; font-family: inherit; }
+  .crumb { font-size: 11.5px; color: #8C7E6A; margin: 6px 0 2px; line-height: 1.5; }
+  .meta { font-size: 11.5px; color: #6B5F49; background: #FAF5EB; border: 1px solid #EFE6D2; border-radius: 10px; padding: 8px 10px; margin-top: 8px; line-height: 1.65; word-break: break-all; }
+  .row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .btn { font-size: 12.5px; font-weight: 700; border-radius: 10px; padding: 8px 12px; border: 1px solid #E6DCC8; background: #fff; color: #2F3E6B; cursor: pointer; }
+  .btn:hover { background: #FAF5EB; }
+  .btn.primary { background: #E2704A; border-color: #E2704A; color: #fff; }
+  .btn.primary:hover { background: #D45E36; }
+  .btn.danger { color: #C0392B; border-color: #E7B7AE; }
+  .btn.small { padding: 5px 9px; font-size: 11.5px; border-radius: 8px; }
+  .imgs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+  .imgs figure { margin: 0; position: relative; }
+  .imgs img { width: 100%; height: 74px; object-fit: cover; border-radius: 8px; border: 1px solid #E6DCC8; cursor: zoom-in; display: block; }
+  .imgs .del { position: absolute; top: 3px; right: 3px; width: 20px; height: 20px; border-radius: 50%; border: none; background: rgba(30,27,75,.75); color: #fff; font-size: 12px; cursor: pointer; line-height: 1; }
+  .relitem, .cmt { background: #FAF5EB; border: 1px solid #EFE6D2; border-radius: 10px; padding: 8px 10px; margin-top: 6px; font-size: 12.5px; line-height: 1.5; }
+  .relitem .who { font-weight: 700; }
+  .cmt .au { font-weight: 700; color: #B4502A; }
+  .cmt .tm { color: #8C7E6A; font-size: 11px; margin-left: 6px; }
+  .cmt .del, .relitem .del { float: right; border: none; background: none; color: #C0392B; cursor: pointer; font-size: 12px; font-weight: 700; }
+  select, input[type="text"], textarea.cin { width: 100%; padding: 8px 10px; border: 1px solid #E6DCC8; border-radius: 10px; font-size: 12.5px; font-family: inherit; margin-top: 6px; outline: none; }
+  textarea.cin { resize: vertical; min-height: 38px; }
+  #toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: #2F3E6B; color: #FFF7E8; font-size: 13px; padding: 10px 16px; border-radius: 999px; box-shadow: 0 6px 20px rgba(0,0,0,.25); display: none; z-index: 50; max-width: 92vw; text-align: center; }
+  #lightbox { position: fixed; inset: 0; background: rgba(20,18,40,.88); display: none; align-items: center; justify-content: center; z-index: 60; cursor: zoom-out; }
+  #lightbox img { max-width: 94vw; max-height: 92vh; border-radius: 10px; }
+  #loading { position: absolute; inset: 54px 0 0 0; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #8C7E6A; background: #FAF5EB; z-index: 4; text-align: center; padding: 20px; }
+  .hint { font-size: 11.5px; color: #8C7E6A; line-height: 1.55; margin-top: 6px; }
+  @media (max-width: 720px) {
+    header h1 { font-size: 13px; }
+    #search { width: 110px; }
+    #panel { top: auto; height: 62vh; width: 100vw; border-left: none; border-top: 1px solid #E6DCC8; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🤝 Mầm Văn — Sơ đồ cộng tác</h1>
+  <span class="sync" id="syncState">⏳ đang kết nối…</span>
+  <div class="sp"></div>
+  <input id="search" type="text" placeholder="🔎 Tìm mục… (Enter)">
+  <button class="hbtn" id="btnFit" type="button">Tổng quan</button>
+  <a class="hbtn" href="so-do-mam-van.html">Sơ đồ chính thức</a>
+  <a class="hbtn" href="lich-su-mam-van.html">Lịch sử thay đổi</a>
+  <button class="hbtn" id="btnName" type="button">👤 <span id="myNameLbl">Đặt tên</span></button>
+</header>
+<div id="stage">
+  <svg id="svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#D64545"/></marker>
+      <marker id="arrB" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#B9A888"/></marker>
+    </defs>
+    <g id="world"></g>
+  </svg>
+  <div id="loading">Đang tải sơ đồ cộng tác…</div>
+</div>
+
+<aside id="panel">
+  <div class="crumb" id="pCrumb"></div>
+  <textarea id="pTitle" rows="2"></textarea>
+  <div class="row">
+    <button class="btn primary" id="btnSaveTitle" type="button">Lưu tên mục</button>
+    <button class="btn" id="btnAddChild" type="button">＋ Thêm mục con</button>
+    <button class="btn danger" id="btnDelete" type="button">🗑 Xóa mục</button>
+  </div>
+  <div class="meta" id="pMeta" style="display:none"></div>
+
+  <h2>🖼 Ảnh minh họa</h2>
+  <div class="imgs" id="pImgs"></div>
+  <div class="row">
+    <button class="btn" id="btnAddImg" type="button">＋ Thêm ảnh</button>
+    <input type="file" id="fileImg" accept="image/*" multiple hidden>
+  </div>
+  <div class="hint">Chọn ảnh từ máy, hoặc bấm vào khung này rồi dán ảnh (Ctrl+V). Ảnh tự nén nhẹ trước khi tải lên.</div>
+
+  <h2>🔀 Luồng liên kết</h2>
+  <div id="pRels"></div>
+  <select id="relTarget"></select>
+  <input type="text" id="relLabel" placeholder="Nhãn luồng mới (ví dụ: duyệt xong → vào kho)">
+  <div class="row"><button class="btn" id="btnAddRel" type="button">＋ Nối luồng từ mục này</button></div>
+
+  <h2>💬 Bình luận</h2>
+  <div id="pCmts"></div>
+  <textarea class="cin" id="cmtInput" rows="2" placeholder="Viết bình luận cho mục này…"></textarea>
+  <div class="row"><button class="btn primary" id="btnCmt" type="button">Gửi bình luận</button>
+  <button class="btn" id="btnClosePanel" type="button">Đóng</button></div>
+</aside>
+
+<div id="toast"></div>
+<div id="lightbox"><img id="lightImg" alt=""></div>
+<script>
+const SB_URL = 'https://htnzigknmccfppdoybzb.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0bnppZ2tubWNjZnBwZG95YnpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NDQxNTUsImV4cCI6MjEwODEyMDE1NX0.Pv2k1P69kcd2Ina-sh5unvsgnBXKqjxsdmSYrZ3pI8g';
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
+const $ = (id) => document.getElementById(id);
+const SVGNS = 'http://www.w3.org/2000/svg';
+
+let doc = null, version = 0, selectedId = null, saving = false;
+let byId = new Map(), parentOf = new Map(), pos = new Map();
+let cmtCounts = new Map(), cmtsCache = new Map();
+let view = { x: 0, y: 0, k: 0.6 };
+const MAIN_COLORS = ['#2F3E6B', '#3E6B2F', '#8A5A2B', '#5B4A8A', '#8A2F5B', '#2F6B6B'];
+
+function toast(msg, ms) {
+  const t = $('toast'); t.textContent = msg; t.style.display = 'block';
+  clearTimeout(t._h); t._h = setTimeout(() => t.style.display = 'none', ms || 3400);
+}
+function myName() { return localStorage.getItem('collab_name') || ''; }
+function askName(force) {
+  let n = myName();
+  if (!n || force) {
+    n = (prompt('Tên của bạn (hiện kèm theo mỗi lần sửa/bình luận):', n || '') || '').trim();
+    if (n) { localStorage.setItem('collab_name', n); $('myNameLbl').textContent = n; }
+  }
+  return myName();
+}
+function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+function indexTree() {
+  byId = new Map(); parentOf = new Map();
+  (function walk(n, p) { byId.set(n.id, n); parentOf.set(n.id, p); (n.children || []).forEach(c => walk(c, n.id)); })(doc.tree, null);
+}
+function branchOf(id) {
+  let cur = id, p = parentOf.get(cur);
+  while (p && parentOf.get(p)) { cur = p; p = parentOf.get(cur); }
+  return cur;
+}
+function branchIndex(id) { return (doc.tree.children || []).findIndex(b => b.id === branchOf(id)); }
+
+/* ---------- Bố cục cây 2 phía ---------- */
+const MAXW = { 0: 300, 1: 330, 2: 320, 3: 305 };
+const VGAP = 12, HGAP = 95;
+const meas = document.createElement('canvas').getContext('2d');
+meas.font = '600 13px system-ui';
+function wrapLines(text, maxw) {
+  const words = String(text || '').split(/\s+/).filter(Boolean);
+  const lines = []; let cur = '';
+  for (const w of words) {
+    const t = cur ? cur + ' ' + w : w;
+    if (meas.measureText(t).width <= maxw - 24 || !cur) cur = t;
+    else { lines.push(cur); cur = w; }
+  }
+  if (cur) lines.push(cur);
+  return lines.length ? lines : [''];
+}
+function metrics(n, depth) {
+  const maxw = MAXW[Math.min(depth, 3)] || 292;
+  const lines = wrapLines(n.title, maxw);
+  const badges = (cmtCounts.get(n.id) || 0) + ((n.images || []).length ? 1 : 0);
+  const h = 16 + lines.length * 17 + (badges ? 17 : 0);
+  return { w: maxw, h, lines };
+}
+function subtreeH(n, depth) {
+  const m = metrics(n, depth);
+  const ch = n.children || [];
+  if (!ch.length) return m.h;
+  return Math.max(m.h, ch.reduce((s, c) => s + subtreeH(c, depth + 1), 0) + (ch.length - 1) * VGAP);
+}
+function layout() {
+  pos = new Map();
+  const root = doc.tree;
+  const rm = metrics(root, 0);
+  const sides = { L: [], R: [] };
+  (root.children || []).forEach(b => sides[(doc.sides && doc.sides[b.id]) || 'R'].push(b));
+  const sideH = (arr) => arr.reduce((s, b) => s + subtreeH(b, 1), 0) + Math.max(0, arr.length - 1) * 46;
+  const totalH = Math.max(sideH(sides.L), sideH(sides.R), rm.h);
+  pos.set(root.id, { x: -rm.w / 2, y: -rm.h / 2, w: rm.w, h: rm.h, depth: 0 });
+  for (const side of ['L', 'R']) {
+    const dir = side === 'L' ? -1 : 1;
+    let y = -totalH / 2;
+    for (const b of sides[side]) {
+      const bh = subtreeH(b, 1);
+      place(b, 1, dir, rm.w / 2 * dir, y, bh);
+      y += bh + 46;
+    }
+  }
+  function place(n, depth, dir, parentEdgeX, top, subH) {
+    const m = metrics(n, depth);
+    const x = dir > 0 ? parentEdgeX + HGAP : parentEdgeX - HGAP - m.w;
+    const y = top + (subH - m.h) / 2;
+    pos.set(n.id, { x, y, w: m.w, h: m.h, depth });
+    let cy = top;
+    for (const c of (n.children || [])) {
+      const chh = subtreeH(c, depth + 1);
+      place(c, depth + 1, dir, dir > 0 ? x + m.w : x, cy, chh);
+      cy += chh + VGAP;
+    }
+  }
+  return totalH;
+}
+
+/* ---------- Vẽ ---------- */
+function el(tag, attrs) { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+function curve(x1, y1, x2, y2) { const mx = (x1 + x2) / 2; return `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`; }
+function render() {
+  layout();
+  const W = $('world'); W.innerHTML = '';
+  const gE = el('g', {}), gR = el('g', {}), gN = el('g', {});
+  (function drawEdges(n) {
+    const p = pos.get(n.id); if (!p) return;
+    for (const c of (n.children || [])) {
+      const q = pos.get(c.id); if (!q) continue;
+      const ltr = q.x > p.x;
+      gE.appendChild(el('path', { d: curve(ltr ? p.x + p.w : p.x, p.y + p.h / 2, ltr ? q.x : q.x + q.w, q.y + q.h / 2), class: 'edge', 'marker-end': 'url(#arrB)' }));
+      drawEdges(c);
+    }
+  })(doc.tree);
+  for (const r of (doc.rels || [])) {
+    const a = pos.get(r.from), b = pos.get(r.to);
+    if (!a || !b) continue;
+    const x1 = a.x + a.w / 2, y1 = a.y + a.h / 2, x2 = b.x + b.w / 2, y2 = b.y + b.h / 2;
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2 - 26;
+    const path = el('path', { d: `M${x1},${y1} Q${mx},${my} ${x2},${y2}`, class: 'rel', 'marker-end': 'url(#arr)' });
+    gR.appendChild(path);
+    if (r.label) {
+      const t = el('text', { x: mx, y: my + 4, class: 'rellab', 'text-anchor': 'middle' });
+      t.textContent = r.label; gR.appendChild(t);
+    }
+  }
+  for (const [id, n] of byId) {
+    const p = pos.get(id); if (!p) continue;
+    const g = el('g', { class: 'node' + (p.depth === 1 ? ' main' : '') + (id === selectedId ? ' sel' : ''), 'data-id': id });
+    const rect = el('rect', { x: p.x, y: p.y, width: p.w, height: p.h, rx: 12, class: 'box' });
+    if (p.depth === 1) rect.style.fill = MAIN_COLORS[branchIndex(id) % MAIN_COLORS.length];
+    g.appendChild(rect);
+    const m = metrics(n, p.depth);
+    m.lines.forEach((ln, i) => {
+      const t = el('text', { x: p.x + 12, y: p.y + 21 + i * 17 });
+      t.textContent = ln; g.appendChild(t);
+    });
+    const cc = cmtCounts.get(id) || 0, ic = (n.images || []).length;
+    if (cc || ic) {
+      const t = el('text', { x: p.x + p.w - 10, y: p.y + p.h - 6, class: 'badges', 'text-anchor': 'end' });
+      t.textContent = (ic ? `🖼 ${ic}  ` : '') + (cc ? `💬 ${cc}` : '');
+      g.appendChild(t);
+    }
+    g.addEventListener('pointerdown', (e) => { g._pd = [e.clientX, e.clientY]; });
+    g.addEventListener('pointerup', (e) => {
+      if (!g._pd) return;
+      const moved = Math.hypot(e.clientX - g._pd[0], e.clientY - g._pd[1]);
+      g._pd = null;
+      if (moved <= 6) select(id, false);
+    });
+    gN.appendChild(g);
+  }
+  W.appendChild(gE); W.appendChild(gR); W.appendChild(gN);
+  applyView();
+}
+function applyView() { $('world').setAttribute('transform', `translate(${view.x},${view.y}) scale(${view.k})`); }
+function fitView() {
+  let minX = 1e9, minY = 1e9, maxX = -1e9, maxY = -1e9;
+  for (const p of pos.values()) { minX = Math.min(minX, p.x); minY = Math.min(minY, p.y); maxX = Math.max(maxX, p.x + p.w); maxY = Math.max(maxY, p.y + p.h); }
+  const r = $('stage').getBoundingClientRect();
+  const k = Math.min(r.width / (maxX - minX + 120), r.height / (maxY - minY + 120), 1);
+  view = { k, x: r.width / 2 - (minX + maxX) / 2 * k, y: r.height / 2 - (minY + maxY) / 2 * k };
+  applyView();
+}
+function centerOn(id) {
+  const p = pos.get(id); if (!p) return;
+  const r = $('stage').getBoundingClientRect();
+  view.x = r.width / 2 - (p.x + p.w / 2) * view.k;
+  view.y = r.height / 2 - (p.y + p.h / 2) * view.k;
+  applyView();
+}
+</script>
+<script>
+/* ---------- Kéo / zoom ---------- */
+(function () {
+  const st = $('stage'); let drag = null; const ptrs = new Map(); let pinchD = 0;
+  st.addEventListener('pointerdown', (e) => { ptrs.set(e.pointerId, [e.clientX, e.clientY]); drag = [e.clientX, e.clientY, view.x, view.y]; st.setPointerCapture(e.pointerId); });
+  st.addEventListener('pointermove', (e) => {
+    if (!ptrs.has(e.pointerId)) return;
+    ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+    if (ptrs.size === 2) {
+      const [a, b] = [...ptrs.values()];
+      const d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      if (pinchD) { const f = d / pinchD; zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, f); }
+      pinchD = d; drag = null; return;
+    }
+    if (drag) { view.x = drag[2] + e.clientX - drag[0]; view.y = drag[3] + e.clientY - drag[1]; applyView(); }
+  });
+  const up = (e) => { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinchD = 0; if (!ptrs.size) drag = null; };
+  st.addEventListener('pointerup', up); st.addEventListener('pointercancel', up);
+  st.addEventListener('wheel', (e) => { e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 0.89); }, { passive: false });
+  function zoomAt(cx, cy, f) {
+    const r = st.getBoundingClientRect(); const px = cx - r.left, py = cy - r.top;
+    const k2 = Math.min(2.4, Math.max(0.08, view.k * f)); const s = k2 / view.k;
+    view.x = px - (px - view.x) * s; view.y = py - (py - view.y) * s; view.k = k2; applyView();
+  }
+})();
+
+/* ---------- Lưu tài liệu (chống ghi đè lẫn nhau bằng version) ---------- */
+function setSync(txt) { $('syncState').textContent = txt; }
+async function saveDoc(note) {
+  if (saving) { toast('Đang lưu thao tác trước…'); return false; }
+  saving = true; setSync('🟡 đang lưu…');
+  const nv = version + 1;
+  const { data, error } = await sb.from('diagram_docs')
+    .update({ data: doc, version: nv, updated_by: myName() || 'Ẩn danh', updated_at: new Date().toISOString() })
+    .eq('id', 'main').eq('version', version).select('id');
+  saving = false;
+  if (error) { setSync('🔴 lỗi lưu'); toast('Lỗi lưu: ' + error.message); return false; }
+  if (!data || !data.length) {
+    setSync('🔴 xung đột');
+    toast('⚠️ Có người vừa sửa trước bạn — đã tải lại bản mới nhất. Hãy xem lại rồi làm lại thao tác vừa rồi.', 5200);
+    await reloadDoc(); return false;
+  }
+  version = nv; setSync('🟢 đã đồng bộ · v' + version);
+  if (note) toast(note);
+  return true;
+}
+async function reloadDoc() {
+  const { data, error } = await sb.from('diagram_docs').select('data, version, updated_by').eq('id', 'main').single();
+  if (error || !data) return;
+  doc = data.data; version = data.version; indexTree(); render();
+  if (selectedId && byId.has(selectedId)) fillPanel(); else closePanel();
+  setSync('🟢 đã đồng bộ · v' + version);
+}
+
+/* ---------- Chọn mục + panel ---------- */
+function closePanel() { selectedId = null; $('panel').classList.remove('open'); render(); }
+function select(id, center) {
+  selectedId = id; render(); fillPanel();
+  $('panel').classList.add('open');
+  if (center) centerOn(id);
+}
+function pathOf(id) {
+  const out = []; let cur = id;
+  while (cur) { out.unshift(byId.get(cur).title); cur = parentOf.get(cur); }
+  return out;
+}
+function fillPanel() {
+  const n = byId.get(selectedId); if (!n) return;
+  $('pCrumb').textContent = pathOf(selectedId).join('  ›  ');
+  $('pTitle').value = n.title;
+  $('btnDelete').style.display = parentOf.get(selectedId) ? '' : 'none';
+  const meta = [];
+  if ((n.files || []).length) meta.push('📁 File: ' + n.files.join(' · '));
+  if ((n.funcs || []).length) meta.push('ƒ Hàm: ' + n.funcs.join(' · '));
+  $('pMeta').style.display = meta.length ? '' : 'none';
+  $('pMeta').innerHTML = meta.map(esc).join('<br>') + (meta.length ? '<br><span style="color:#8C7E6A">(theo sơ đồ chính thức — chỉ để tham chiếu)</span>' : '');
+  renderImgs(n); renderRels(n); renderCmts();
+  const sel = $('relTarget'); sel.innerHTML = '';
+  [...byId.values()].filter(x => x.id !== selectedId && parentOf.get(x.id))
+    .sort((a, b) => a.title.localeCompare(b.title, 'vi'))
+    .forEach(x => { const o = document.createElement('option'); o.value = x.id; o.textContent = x.title; sel.appendChild(o); });
+}
+function renderImgs(n) {
+  const w = $('pImgs'); w.innerHTML = '';
+  (n.images || []).forEach((url, i) => {
+    const f = document.createElement('figure');
+    const im = document.createElement('img'); im.src = url; im.alt = ''; im.loading = 'lazy';
+    im.onclick = () => { $('lightImg').src = url; $('lightbox').style.display = 'flex'; };
+    const d = document.createElement('button'); d.className = 'del'; d.textContent = '×'; d.title = 'Xóa ảnh';
+    d.onclick = async (e) => {
+      e.stopPropagation();
+      if (!askName()) { toast('Hãy đặt tên trước khi sửa'); return; }
+      n.images.splice(i, 1);
+      if (await saveDoc('Đã xóa ảnh')) { render(); fillPanel(); try { await sb.storage.from('diagram-images').remove([url.split('/diagram-images/')[1]]); } catch (_) {} }
+    };
+    f.appendChild(im); f.appendChild(d); w.appendChild(f);
+  });
+}
+function renderRels(n) {
+  const w = $('pRels'); w.innerHTML = '';
+  const mine = (doc.rels || []).filter(r => r.from === n.id || r.to === n.id);
+  if (!mine.length) w.innerHTML = '<div class="hint">Chưa có luồng liên kết nào.</div>';
+  mine.forEach(r => {
+    const out = r.from === n.id;
+    const other = byId.get(out ? r.to : r.from);
+    const d = document.createElement('div'); d.className = 'relitem';
+    d.innerHTML = `<button class="del" title="Xóa luồng">✕</button><span class="who">${out ? '→ tới' : '← từ'}: ${esc(other ? other.title : '(mục đã xóa)')}</span>` +
+      (r.label ? `<br>Nhãn: <b>${esc(r.label)}</b> <a href="#" data-act="edit" style="color:#B4502A">sửa nhãn</a>` : ' <a href="#" data-act="edit" style="color:#B4502A">thêm nhãn</a>');
+    d.querySelector('.del').onclick = async () => {
+      if (!confirm('Xóa luồng liên kết này?')) return;
+      doc.rels = doc.rels.filter(x => x.id !== r.id);
+      if (await saveDoc('Đã xóa luồng')) { render(); fillPanel(); }
+    };
+    d.querySelector('[data-act="edit"]').onclick = async (e) => {
+      e.preventDefault();
+      const v = prompt('Nhãn của luồng:', r.label || '');
+      if (v === null) return;
+      r.label = v.trim();
+      if (await saveDoc('Đã sửa nhãn luồng')) { render(); fillPanel(); }
+    };
+    w.appendChild(d);
+  });
+}
+async function renderCmts() {
+  const w = $('pCmts'); if (!selectedId) return;
+  if (!cmtsCache.has(selectedId)) {
+    const { data } = await sb.from('diagram_comments').select('*').eq('node_id', selectedId).order('created_at', { ascending: true });
+    cmtsCache.set(selectedId, data || []);
+  }
+  const list = cmtsCache.get(selectedId) || [];
+  w.innerHTML = list.length ? '' : '<div class="hint">Chưa có bình luận nào cho mục này.</div>';
+  list.forEach(c => {
+    const d = document.createElement('div'); d.className = 'cmt';
+    d.innerHTML = `<button class="del" title="Xóa bình luận">✕</button><span class="au">${esc(c.author)}</span><span class="tm">${new Date(c.created_at).toLocaleString('vi-VN')}</span><br>${esc(c.body)}`;
+    d.querySelector('.del').onclick = async () => {
+      if (!confirm('Xóa bình luận này?')) return;
+      await sb.from('diagram_comments').delete().eq('id', c.id);
+      cmtsCache.set(selectedId, (cmtsCache.get(selectedId) || []).filter(x => x.id !== c.id));
+      cmtCounts.set(selectedId, Math.max(0, (cmtCounts.get(selectedId) || 1) - 1));
+      render(); renderCmts();
+    };
+    w.appendChild(d);
+  });
+}
+
+/* ---------- Thao tác sửa ---------- */
+$('btnName').onclick = () => { if (askName(true)) toast('Xin chào, ' + myName()); };
+$('btnFit').onclick = fitView;
+$('btnClosePanel').onclick = closePanel;
+$('lightbox').onclick = () => { $('lightbox').style.display = 'none'; $('lightImg').src = ''; };
+$('btnSaveTitle').onclick = async () => {
+  const n = byId.get(selectedId); if (!n) return;
+  if (!askName()) { toast('Hãy đặt tên trước khi sửa'); return; }
+  const v = $('pTitle').value.trim();
+  if (!v || v === n.title) return;
+  n.title = v;
+  if (await saveDoc('Đã đổi tên mục')) { render(); fillPanel(); }
+};
+$('btnAddChild').onclick = async () => {
+  const n = byId.get(selectedId); if (!n) return;
+  if (!askName()) { toast('Hãy đặt tên trước khi sửa'); return; }
+  const child = { id: 'n_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7), title: 'Mục mới — sửa tên tại đây', files: [], funcs: [], images: [], children: [] };
+  n.children = n.children || []; n.children.push(child);
+  if (await saveDoc('Đã thêm mục con')) { indexTree(); render(); select(child.id, true); $('pTitle').focus(); $('pTitle').select(); }
+};
+$('btnDelete').onclick = async () => {
+  const n = byId.get(selectedId); if (!n || !parentOf.get(selectedId)) return;
+  if (!askName()) { toast('Hãy đặt tên trước khi sửa'); return; }
+  if (!confirm(`Xóa mục "${n.title}" và toàn bộ mục con bên trong?`)) return;
+  const pid = parentOf.get(selectedId);
+  const parent = byId.get(pid);
+  parent.children = parent.children.filter(c => c.id !== selectedId);
+  const dead = new Set(); (function col(x) { dead.add(x.id); (x.children || []).forEach(col); })(n);
+  doc.rels = (doc.rels || []).filter(r => !dead.has(r.from) && !dead.has(r.to));
+  if (await saveDoc('Đã xóa mục')) { selectedId = pid; indexTree(); render(); fillPanel(); }
+};
+$('btnAddRel').onclick = async () => {
+  if (!askName()) { toast('Hãy đặt tên trước khi sửa'); return; }
+  const to = $('relTarget').value; if (!to) return;
+  if ((doc.rels || []).some(r => r.from === selectedId && r.to === to)) { toast('Luồng này đã tồn tại'); return; }
+  doc.rels = doc.rels || [];
+  doc.rels.push({ id: 'r_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), from: selectedId, to, label: $('relLabel').value.trim() });
+  $('relLabel').value = '';
+  if (await saveDoc('Đã nối luồng mới')) { render(); fillPanel(); }
+};
+
+/* ---------- Ảnh ---------- */
+async function addImageFile(file) {
+  const n = byId.get(selectedId); if (!n || !file) return;
+  if (!askName()) { toast('Hãy đặt tên trước khi sửa'); return; }
+  toast('Đang tải ảnh lên…');
+  const bmp = await createImageBitmap(file);
+  const scale = Math.min(1, 1280 / Math.max(bmp.width, bmp.height));
+  const cv = document.createElement('canvas');
+  cv.width = Math.round(bmp.width * scale); cv.height = Math.round(bmp.height * scale);
+  cv.getContext('2d').drawImage(bmp, 0, 0, cv.width, cv.height);
+  const blob = await new Promise(r => cv.toBlob(r, 'image/jpeg', 0.85));
+  const path = `${selectedId}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.jpg`;
+  const { error } = await sb.storage.from('diagram-images').upload(path, blob, { contentType: 'image/jpeg' });
+  if (error) { toast('Lỗi tải ảnh: ' + error.message); return; }
+  const url = sb.storage.from('diagram-images').getPublicUrl(path).data.publicUrl;
+  n.images = n.images || []; n.images.push(url);
+  if (await saveDoc('Đã gắn ảnh vào mục')) { render(); fillPanel(); }
+}
+$('btnAddImg').onclick = () => $('fileImg').click();
+$('fileImg').onchange = async (e) => { for (const f of e.target.files) await addImageFile(f); e.target.value = ''; };
+$('panel').addEventListener('paste', (e) => {
+  const item = [...(e.clipboardData || {}).items || []].find(i => i.type.startsWith('image/'));
+  if (item && selectedId) { e.preventDefault(); addImageFile(item.getAsFile()); }
+});
+
+/* ---------- Bình luận ---------- */
+$('btnCmt').onclick = async () => {
+  const body = $('cmtInput').value.trim(); if (!body) return;
+  if (!askName()) { toast('Hãy đặt tên trước khi bình luận'); return; }
+  const { data, error } = await sb.from('diagram_comments')
+    .insert({ node_id: selectedId, author: myName(), body }).select('*').single();
+  if (error) { toast('Lỗi gửi bình luận: ' + error.message); return; }
+  $('cmtInput').value = '';
+  const list = cmtsCache.get(selectedId) || []; list.push(data); cmtsCache.set(selectedId, list);
+  cmtCounts.set(selectedId, (cmtCounts.get(selectedId) || 0) + 1);
+  render(); renderCmts();
+};
+
+/* ---------- Tìm kiếm ---------- */
+$('search').addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  const q = e.target.value.trim().toLowerCase(); if (!q) return;
+  const hit = [...byId.values()].find(n => parentOf.get(n.id) && n.title.toLowerCase().includes(q));
+  if (hit) { select(hit.id, true); toast('Đã tới: ' + hit.title); }
+  else toast('Không tìm thấy mục nào khớp');
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if ($('lightbox').style.display === 'flex') $('lightbox').style.display = 'none'; else closePanel(); } });
+
+/* ---------- Khởi động + realtime ---------- */
+(async function boot() {
+  if (myName()) $('myNameLbl').textContent = myName();
+  const { data, error } = await sb.from('diagram_docs').select('data, version').eq('id', 'main').single();
+  if (error || !data) { $('loading').textContent = 'Chưa tải được dữ liệu (kiểm tra kết nối mạng rồi tải lại trang).'; return; }
+  doc = data.data; version = data.version; indexTree();
+  const { data: all } = await sb.from('diagram_comments').select('node_id');
+  (all || []).forEach(r => cmtCounts.set(r.node_id, (cmtCounts.get(r.node_id) || 0) + 1));
+  $('loading').style.display = 'none';
+  render(); fitView();
+  setSync('🟢 đã đồng bộ · v' + version);
+  sb.channel('collab')
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'diagram_docs' }, async (pl) => {
+      if (saving) return;
+      if (pl.new && pl.new.version > version) {
+        doc = pl.new.data; version = pl.new.version; indexTree(); render();
+        if (selectedId && byId.has(selectedId)) fillPanel();
+        setSync('🟢 đã đồng bộ · v' + version);
+        toast(`🔄 ${pl.new.updated_by || 'Ai đó'} vừa cập nhật sơ đồ`);
+      }
+    })
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'diagram_comments' }, (pl) => {
+      const c = pl.new; if (!c) return;
+      cmtCounts.set(c.node_id, (cmtCounts.get(c.node_id) || 0) + 1);
+      if (cmtsCache.has(c.node_id) && !(cmtsCache.get(c.node_id) || []).some(x => x.id === c.id)) cmtsCache.get(c.node_id).push(c);
+      render();
+      if (c.node_id === selectedId) renderCmts();
+    })
+    .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'diagram_comments' }, () => { cmtsCache.clear(); reloadDoc(); })
+    .subscribe();
+  setInterval(async () => { if (!saving) { const { data } = await sb.from('diagram_docs').select('version').eq('id', 'main').single(); if (data && data.version > version) reloadDoc(); } }, 30000);
+})();
+</script>
+</body>
+</html>
