@@ -282,13 +282,7 @@ function render() {
       t.textContent = (ic ? `🖼 ${ic}  ` : '') + (cc ? `💬 ${cc}` : '');
       g.appendChild(t);
     }
-    g.addEventListener('pointerdown', (e) => { g._pd = [e.clientX, e.clientY]; });
-    g.addEventListener('pointerup', (e) => {
-      if (!g._pd) return;
-      const moved = Math.hypot(e.clientX - g._pd[0], e.clientY - g._pd[1]);
-      g._pd = null;
-      if (moved <= 6) select(id, false);
-    });
+    // Chon muc xu ly o cap #stage (tap hit-test) — xem handler pointerup ben duoi.
     gN.appendChild(g);
   }
   W.appendChild(gE); W.appendChild(gR); W.appendChild(gN);
@@ -327,7 +321,18 @@ function centerOn(id) {
     }
     if (drag) { view.x = drag[2] + e.clientX - drag[0]; view.y = drag[3] + e.clientY - drag[1]; applyView(); }
   });
-  const up = (e) => { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinchD = 0; if (!ptrs.size) drag = null; };
+  const up = (e) => {
+    const wasTap = drag && ptrs.size === 1 && Math.hypot(e.clientX - drag[0], e.clientY - drag[1]) <= 6;
+    ptrs.delete(e.pointerId); if (ptrs.size < 2) pinchD = 0; if (!ptrs.size) drag = null;
+    if (wasTap && e.type === 'pointerup') {
+      // Cham nhe = chon muc. Phai tu xac dinh hop tai diem cham vi pointer-capture
+      // cua thao tac keo lam su kien pointerup khong ve dung hop duoc bam.
+      const hit = document.elementFromPoint(e.clientX, e.clientY);
+      const g = hit && hit.closest ? hit.closest('.node') : null;
+      if (g && g.dataset.id) select(g.dataset.id, false);
+      else closePanel();
+    }
+  };
   st.addEventListener('pointerup', up); st.addEventListener('pointercancel', up);
   st.addEventListener('wheel', (e) => { e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 0.89); }, { passive: false });
   function zoomAt(cx, cy, f) {
