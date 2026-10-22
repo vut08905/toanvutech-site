@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Luyện Thi TOEIC Online - ULSA Practice Test 4 (200 Câu Kèm Audio & Lời Thoại)</title>
+  <meta name="description" content="Nền tảng ôn thi TOEIC trực tuyến chuẩn format IIG 200 câu hỏi. Hỗ trợ Audio nghe, transcript lời thoại chi tiết, đáp án tức thì và chấm điểm tự động.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- APP HEADER / TOP BAR -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-logo" title="TOEIC Master Online">T</div>
+      <div class="brand-info">
+        <h1>TOEIC Master <span class="brand-badge" id="exam-badge">Đề 1</span></h1>
+      </div>
+    </div>
+
+    <!-- Floating Global Audio Player Bar -->
+    <div class="header-audio-player" id="global-audio-player">
+      <button class="audio-btn" id="audio-replay-5s" title="Lùi lại 5 giây (-5s)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+      </button>
+      <button class="audio-btn primary" id="audio-play-toggle" title="Phát / Dừng Audio (Phím Space)">
+        <svg id="play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="pause-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <button class="audio-btn" id="audio-forward-5s" title="Tua tới 5 giây (+5s)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </button>
+      
+      <div class="audio-track-info">
+        <span class="audio-track-title" id="audio-track-name">Chưa chọn bài nghe</span>
+        <div class="audio-timeline">
+          <span id="audio-cur-time">00:00</span>
+          <div class="audio-progress-bar" id="audio-scrub-bar">
+            <div class="audio-progress-fill" id="audio-scrub-fill"></div>
+          </div>
+          <span id="audio-dur-time">00:00</span>
+        </div>
+      </div>
+
+      <button class="audio-speed-btn" id="audio-speed-toggle" title="Tốc độ nghe">1.0x</button>
+    </div>
+
+    <!-- Right Header Tools -->
+    <div class="header-actions">
+      <!-- Study Hub Link -->
+      <a href="study.html" class="btn-study-hub" title="Chuyển sang Chế độ Học Chuyên Sâu cho người mất gốc">
+        🎓 <span>Học Mất Gốc</span>
+      </a>
+
+      <!-- Mode Switcher -->
+      <div class="toggle-switch-wrapper" id="mode-toggle-btn" title="Chuyển đổi giữa Chế độ Luyện tập & Chế độ Thi thử">
+        <span id="mode-label">⚡ Luyện tập</span>
+      </div>
+
+      <!-- Timer -->
+      <div class="timer-box" id="exam-timer" title="Nhấp để tạm dừng / tiếp tục tính giờ">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="timer-display">120:00</span>
+      </div>
+
+      <!-- Dark / Light Theme Toggle -->
+      <button class="btn-icon" id="theme-toggle-btn" title="Đổi giao diện Sáng / Tối">
+        <svg id="theme-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="theme-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+
+      <!-- Toggle Matrix Drawer on Mobile -->
+      <button class="btn-icon mobile-only" id="mobile-matrix-btn" title="Bảng 200 câu hỏi">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </button>
+
+      <!-- Submit Test Button -->
+      <button class="btn-submit" id="submit-exam-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Nộp bài</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- EXAM SELECTION & STUDY HUB BAR (3 CHẾ ĐỘ THI) -->
+  <div class="exam-selector-bar">
+    <div class="exam-mode-pills" id="exam-mode-pills">
+      <span class="exam-bar-label">🎯 Chế Độ Đề Thi:</span>
+      <button class="exam-pill-btn" data-exam="1">📘 1. Đề 1 (Test 3 Mới)</button>
+      <button class="exam-pill-btn" data-exam="2">📙 2. Đề 2 (Test 4)</button>
+      <button class="exam-pill-btn" data-exam="3">🔀 3. Đề Xáo Trộn (Mix 2 Đề)</button>
+      <button class="exam-pill-btn btn-shuffle-random" id="btn-shuffle-exam-now" title="Bấm để tạo ngay một bộ đề ngẫu nhiên 200 câu mới từ 2 đề">🎲 Trộn Đề Mới (Random)</button>
+    </div>
+    <a href="study.html" class="btn-study-hub-banner" id="banner-study-hub-btn" title="Vào chế độ Học Chuyên Sâu cho người mất gốc">
+      🎓 <span>Học Mất Gốc (Bản Dịch & Mẹo Bẫy)</span> 👉
+    </a>
+  </div>
+
+  <!-- PART NAVIGATION TABS -->
+  <div class="part-nav-container">
+    <nav class="part-nav-tabs" id="part-tabs-list">
+      <!-- Tabs generated by app.js -->
+    </nav>
+    <div class="overall-progress-bar">
+      <div class="overall-progress-fill" id="overall-progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="app-main">
+    
+    <!-- LEFT: EXAM AREA (ACTIVE PART QUESTIONS) -->
+    <section class="exam-area" id="exam-area">
+      <!-- Injected by app.js -->
+    </section>
+
+    <!-- RIGHT: STICKY QUESTION MATRIX (200 QUESTIONS PALETTE) -->
+    <aside class="sidebar-matrix" id="sidebar-matrix">
+      <div class="matrix-header">
+        <h3>Bảng câu hỏi</h3>
+        <span class="brand-badge" id="completion-badge">0 / 200</span>
+      </div>
+
+      <div class="matrix-stats">
+        <div class="stat-chip answered" id="stat-answered">0 Đã làm</div>
+        <div class="stat-chip unanswered" id="stat-unanswered">200 Chưa làm</div>
+        <div class="stat-chip flagged" id="stat-flagged">0 Cờ</div>
+      </div>
+
+      <div class="matrix-filter-pills">
+        <button class="matrix-filter-btn active" data-filter="all">Tất cả</button>
+        <button class="matrix-filter-btn" data-filter="unanswered">Chưa làm</button>
+        <button class="matrix-filter-btn" data-filter="flagged">Đánh dấu</button>
+      </div>
+
+      <div class="matrix-grid-scroll" id="matrix-grid-scroll">
+        <!-- Injected by app.js -->
+      </div>
+    </aside>
+    <div class="matrix-backdrop" id="matrix-backdrop"></div>
+
+  </main>
+
+  <!-- FLOATING QUICK NAVIGATION BAR -->
+  <div class="floating-bottom-bar" id="floating-bar">
+    <button class="nav-jump-btn" id="btn-prev-q">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Câu trước
+    </button>
+    <div style="font-size: 13px; font-weight: 700; color: var(--text-secondary);" id="floating-q-indicator">
+      Câu 1 / 200
+    </div>
+    <button class="nav-jump-btn" id="btn-next-q">
+      Câu tiếp
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- SUBMIT CONFIRMATION MODAL -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal-card" style="max-width: 480px; text-align: center;">
+      <div style="width: 56px; height: 56px; background: var(--accent-orange-light); color: var(--accent-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">Xác nhận nộp bài thi?</h3>
+      <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;" id="confirm-modal-msg">
+        Bạn đã hoàn thành 0 / 200 câu hỏi. Bạn có chắc chắn muốn kết thúc bài thi và xem bảng điểm chi tiết?
+      </p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button class="nav-jump-btn" id="confirm-cancel-btn" style="flex: 1; justify-content: center; padding: 10px;">
+          Làm tiếp
+        </button>
+        <button class="btn-submit" id="confirm-submit-btn" style="flex: 1; justify-content: center; padding: 10px;">
+          Nộp bài ngay
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT & SCORE MODAL -->
+  <div class="modal-overlay" id="result-modal">
+    <div class="modal-card">
+      <div class="result-score-hero">
+        <h2 style="font-size: 18px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">KẾT QUẢ BÀI THI</h2>
+        <div class="score-number" id="modal-total-score">0 / 990</div>
+        <div style="font-size: 14px; font-weight: 600; color: var(--text-secondary);" id="modal-correct-ratio">Đúng 0 / 200 câu (0%)</div>
+      </div>
+
+      <div class="score-breakdown-grid">
+        <div class="score-box">
+          <div style="font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">LISTENING (PART 1-4)</div>
+          <div class="score-box-val" id="modal-listening-score">0 / 495</div>
+          <div style="font-size: 12px; color: var(--text-secondary);" id="modal-listening-detail">Đúng 0/100 câu</div>
+        </div>
+        <div class="score-box">
+          <div style="font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">READING (PART 5-7)</div>
+          <div class="score-box-val" id="modal-reading-score" style="color: var(--accent-orange);">0 / 495</div>
+          <div style="font-size: 12px; color: var(--text-secondary);" id="modal-reading-detail">Đúng 0/100 câu</div>
+        </div>
+      </div>
+
+      <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 10px;">Thống kê theo từng phần:</h4>
+      <div class="part-breakdown-list" id="modal-part-breakdown">
+        <!-- Injected by app.js -->
+      </div>
+
+      <div style="display: flex; gap: 12px; margin-top: 24px;">
+        <button class="btn-submit" id="modal-btn-review" style="flex: 1; justify-content: center; background: var(--primary);">
+          Xem lại bài làm & Lời thoại
+        </button>
+        <button class="nav-jump-btn" id="modal-btn-retake" style="padding: 10px 18px;">
+          Làm lại từ đầu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGE LIGHTBOX MODAL -->
+  <div class="lightbox-overlay" id="lightbox-modal">
+    <button class="lightbox-close-btn" id="lightbox-close" title="Đóng ảnh">&times;</button>
+    <img src="" alt="Enlarged view" class="lightbox-img" id="lightbox-img">
+  </div>
+
+  <!-- Hidden HTML5 Audio Element for Playback -->
+  <audio id="core-audio-element" preload="auto"></audio>
+
+  <!-- SCRIPTS -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

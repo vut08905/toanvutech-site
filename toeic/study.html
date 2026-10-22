@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1e1b4b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Lộ Trình Học Xóa Mất Gốc TOEIC - Đạt 100% Điểm Bài Thi ULSA 4</title>
+  <meta name="description" content="Chương trình học TOEIC chuyên sâu dành cho người mất gốc: Lời thoại song ngữ Anh - Việt, mẹo bẫy đề thi, giải thích ngữ pháp cặn kẽ và luyện nghe chép chính tả.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <link rel="stylesheet" href="study.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="study-header">
+    <div class="brand-title-wrap">
+      <a href="index.html" class="btn-back-test" title="Quay lại phòng thi làm bài">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        <span class="btn-back-text">Thi Thử</span>
+      </a>
+      <div>
+        <h1 style="font-size: 17px; font-weight: 800; letter-spacing: -0.02em;">
+          🎓 TOEIC Mastery Hub
+        </h1>
+        <p style="font-size: 12px; color: var(--text-muted);">Lộ trình xóa mất gốc & làm chủ 200 câu hỏi</p>
+      </div>
+    </div>
+
+    <!-- Mastery Progress Pill -->
+    <div class="mastery-progress-pill">
+      <span>Tiến độ thành thạo:</span>
+      <span class="val" id="mastery-stat">0 / 200 câu (0%)</span>
+    </div>
+
+    <!-- Right Actions -->
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="study-tab-btn mobile-matrix-trigger" id="btn-open-mobile-matrix" title="Mở danh sách 200 câu hỏi">
+        📑 <span class="mobile-matrix-text">200 Câu</span>
+      </button>
+      <button class="study-tab-btn" id="study-theme-toggle" style="padding: 6px 12px;" title="Chuyển chế độ Sáng / Tối">
+        🌓 <span class="theme-text">Giao diện</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- EXAM SELECTION BAR FOR STUDY HUB -->
+  <div class="study-exam-bar">
+    <div class="study-exam-label">🎯 Chọn Đề Học:</div>
+    <div class="study-mode-pills" id="study-exam-pills">
+      <button class="study-pill-btn" data-study="1">📘 1. Đề 1: ULSA Test 3 (Mới)</button>
+      <button class="study-pill-btn" data-study="2">📙 2. Đề 2: ULSA Test 4</button>
+      <button class="study-pill-btn" data-study="3">🔀 3. Đề Xáo Trộn (Mix Đề 1 & 2)</button>
+      <button class="study-pill-btn btn-shuffle-random" id="btn-shuffle-study-now" title="Bấm để tạo ngay một bộ 200 câu xáo trộn ngẫu nhiên mới từ 2 đề">🎲 Trộn Đề Mới (Random)</button>
+    </div>
+    <a href="index.html" class="study-back-exam-btn" id="btn-back-to-test" title="Quay lại phòng thi thử 200 câu">
+      ✍️ <span>Phòng Thi Thử</span>
+    </a>
+  </div>
+
+  <!-- LEARNING MODE TABS -->
+  <nav class="study-tabs-nav">
+    <button class="study-tab-btn active" id="tab-btn-mastery" data-tab="mastery">
+      📚 Học Từng Câu (Dịch & Mẹo Bẫy)
+    </button>
+    <button class="study-tab-btn" id="tab-btn-dictation" data-tab="dictation">
+      🎧 Luyện Nghe Chép Chính Tả (Part 1-4)
+    </button>
+    <button class="study-tab-btn" id="tab-btn-vocab" data-tab="vocab">
+      🗂️ Sổ Tay Từ Vựng Toàn Diện (600+ Từ)
+    </button>
+    <button class="study-tab-btn" id="tab-btn-rescue" data-tab="rescue">
+      🚑 Cấp Cứu Trước Giờ Thi
+    </button>
+  </nav>
+
+  <!-- MAIN STUDY AREA -->
+  <main class="study-main">
+    
+    <!-- LEFT: DYNAMIC STUDY CONTENT -->
+    <section class="study-content-area" id="study-content-area">
+      <!-- Injected by study.js -->
+    </section>
+
+    <!-- RIGHT: 200 QUESTIONS MATRIX NAVIGATOR -->
+    <aside class="study-sidebar">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <h3 style="font-size: 14.5px; font-weight: 800;">Mục Lục 200 Câu</h3>
+        <span style="font-size: 11px; font-weight: 700; color: var(--success);" id="mastered-count-badge">0 Đã thuộc</span>
+      </div>
+
+      <div style="display: flex; gap: 4px; margin-bottom: 12px;">
+        <button class="study-tab-btn" id="filter-all-study" style="padding: 4px 8px; font-size: 11px;">Tất cả</button>
+        <button class="study-tab-btn" id="filter-unmastered" style="padding: 4px 8px; font-size: 11px;">Chưa thuộc</button>
+      </div>
+
+      <div class="study-matrix-grid" id="study-matrix-grid">
+        <!-- Injected by study.js -->
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Hidden Audio Engine -->
+  <audio id="study-audio-core" preload="auto"></audio>
+
+  <!-- LIGHTBOX IMAGE VIEWER -->
+  <div class="lightbox-overlay" id="study-lightbox" style="position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center;">
+    <button id="study-lightbox-close" style="position:absolute; top:24px; right:24px; background:none; border:none; color:#fff; font-size:32px; cursor:pointer;">&times;</button>
+    <img id="study-lightbox-img" src="" alt="Enlarged" style="max-width:90vw; max-height:90vh; border-radius:12px;">
+  </div>
+
+  <!-- MOBILE MATRIX DRAWER MODAL -->
+  <div class="mobile-matrix-drawer" id="mobile-matrix-drawer">
+    <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop"></div>
+    <div class="mobile-drawer-content">
+      <div class="mobile-drawer-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <h3 style="font-size: 16px; font-weight: 800;">📑 Mục Lục 200 Câu</h3>
+          <span style="font-size: 11.5px; font-weight: 700; color: var(--success);" id="mobile-mastered-badge">0 Đã thuộc</span>
+        </div>
+        <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Đóng">&times;</button>
+      </div>
+
+      <div style="display: flex; gap: 6px; margin: 12px 0 8px;">
+        <button class="study-tab-btn active" id="mobile-filter-all" style="padding: 5px 12px; font-size: 12px;">Tất cả</button>
+        <button class="study-tab-btn" id="mobile-filter-unmastered" style="padding: 5px 12px; font-size: 12px;">Chưa thuộc</button>
+      </div>
+
+      <div class="study-matrix-grid mobile-grid" id="mobile-matrix-grid">
+        <!-- Injected by study.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE FLOATING BOTTOM THUMB NAVIGATION -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Thanh điều hướng ngón tay trên điện thoại">
+    <button class="mobile-nav-btn" id="mobile-nav-prev" title="Câu trước">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      <span>Câu trước</span>
+    </button>
+    <button class="mobile-nav-center-btn" id="mobile-nav-matrix-btn" title="Chạm để mở bảng 200 câu hỏi">
+      <span class="mobile-nav-q-badge" id="mobile-nav-qnum">Câu 1 / 200</span>
+      <span class="mobile-nav-matrix-hint">📑 Chạm mở mục lục</span>
+    </button>
+    <button class="mobile-nav-btn primary" id="mobile-nav-next" title="Câu sau">
+      <span>Câu sau</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </nav>
+
+  <!-- SCRIPTS -->
+  <script src="study_data.js"></script>
+  <script src="study.js"></script>
+</body>
+</html>
