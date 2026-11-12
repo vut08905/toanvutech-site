@@ -2,281 +2,242 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Các dự án của Vũ Xuân Toàn — Telegram shop, ToanVX, Mầm Văn, DocConvert, SAOKE, Shopee Affiliate, Vĩnh Giang WMS và các công cụ khác." />
-<meta name="author" content="Vũ Xuân Toàn" />
 <title>Dự án — Vũ Xuân Toàn</title>
-<link rel="icon" type="image/x-icon" href="freelancer/favicon.ico" />
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-<link href="freelancer/css/styles.css" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="https://vuxuantoan.me/favicon.svg" />
+<link rel="canonical" href="https://vuxuantoan.me/projects.html" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,800" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
 <style>
-  .cat-label { font-family: Montserrat, sans-serif; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: .85rem; color: #1abc9c; }
-  .proj-card { border: 1px solid #e9ecef; border-radius: .5rem; padding: 1.25rem 1.5rem; height: 100%; background: #fff; }
-  .proj-card h5 { font-family: Montserrat, sans-serif; font-weight: 700; color: #2c3e50; margin-bottom: .35rem; }
-  .proj-card p { color: #495057; font-size: .95rem; margin-bottom: .6rem; }
-  .proj-card .tech { font-size: .8rem; color: #6c757d; }
-  .proj-card a { color: #1abc9c; text-decoration: none; font-weight: 700; font-size: .9rem; }
-  .proj-card a:hover { text-decoration: underline; }
-  .filter-btn { margin: .15rem; }
-  .page-section { padding: 4rem 0; }
-  .section-alt { background: #f8f9fa; }
+  :root {
+    --primary: #02aab0;
+    --secondary: #00cdac;
+    --heading: #272341;
+    --body: #333333;
+    --muted: #6c757d;
+    --line: #e9ecef;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Lato', -apple-system, sans-serif; color: var(--body); font-size: 1.05rem; line-height: 1.7; background: #fff; }
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; color: var(--heading); font-weight: 800; line-height: 1.2; }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; }
+  nav .brand { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--heading); text-decoration: none; }
+  nav .links a { color: var(--body); font-weight: 700; font-size: .95rem; margin-left: 28px; text-decoration: none; }
+  nav .links a:hover { color: var(--primary); }
+
+  /* Hero */
+  header.hero { padding: 90px 0 60px; }
+  header.hero h1 { font-size: 3.2rem; margin-bottom: 16px; }
+  header.hero h1 .grad { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  header.hero p { font-size: 1.25rem; color: var(--muted); max-width: 640px; }
+  .filters { margin-top: 36px; }
+  .filters button { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .85rem; padding: 8px 16px; margin: 0 6px 6px 0; border: 1px solid var(--line); background: #fff; color: var(--body); border-radius: 999px; cursor: pointer; }
+  .filters button:hover { border-color: var(--primary); color: var(--primary); }
+  .filters button.active { background: var(--heading); color: #fff; border-color: var(--heading); }
+
+  /* Featured projects — alternating rows */
+  section.featured { padding: 40px 0 20px; }
+  .feat { display: flex; gap: 48px; align-items: center; margin-bottom: 80px; }
+  .feat:nth-child(even) { flex-direction: row-reverse; }
+  .feat .shot { flex: 1.15; }
+  .feat .shot img { width: 100%; border: 1px solid var(--line); border-radius: 8px; display: block; }
+  .feat .info { flex: 1; }
+  .feat .info .kicker { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 10px; }
+  .feat .info h2 { font-size: 1.9rem; margin-bottom: 12px; }
+  .feat .info p { margin-bottom: 12px; }
+  .feat .info .tech { font-size: .9rem; color: var(--muted); margin-bottom: 16px; }
+  .btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .9rem; padding: 12px 28px; border-radius: 4px; text-decoration: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; }
+  .btn:hover { text-decoration: none; opacity: .9; }
+  .btn.ghost { background: #fff; color: var(--heading); border: 2px solid var(--heading); }
+  .btn.ghost:hover { background: var(--heading); color: #fff; }
+
+  /* All projects */
+  section.all { padding: 20px 0 80px; }
+  section.all h2 { font-size: 2rem; margin-bottom: 8px; }
+  section.all .sub { color: var(--muted); margin-bottom: 40px; }
+  .cat { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: .85rem; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin: 48px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .plist { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .proj { border-top: 3px solid var(--heading); padding-top: 16px; }
+  .proj h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .proj h3 a { color: var(--heading); }
+  .proj p { font-size: .98rem; margin-bottom: 8px; }
+  .proj .tech { font-size: .85rem; color: var(--muted); }
+
+  footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: .95rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer a { color: var(--body); font-weight: 700; }
+
+  @media (max-width: 860px) {
+    header.hero h1 { font-size: 2.2rem; }
+    .feat { flex-direction: column !important; gap: 20px; margin-bottom: 56px; }
+    .plist { grid-template-columns: 1fr; }
+    nav .links a { margin-left: 16px; }
+  }
 </style>
 </head>
-<body id="page-top">
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-  <div class="container">
-    <a class="navbar-brand" href="/">Vũ Xuân Toàn</a>
-    <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      Menu <i class="fas fa-bars"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Trang chủ</a></li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/about.html">Giới thiệu</a></li>
-        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Dự án</a></li>
-      </ul>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="/">Vũ Xuân Toàn</a>
+    <div class="links">
+      <a href="/">Trang chủ</a>
+      <a href="/about.html">Giới thiệu</a>
+      <a href="#projects">Dự án</a>
     </div>
   </div>
 </nav>
 
-<!-- Masthead -->
-<header class="masthead bg-primary text-white text-center">
-  <div class="container d-flex align-items-center flex-column">
-    <h1 class="masthead-heading text-uppercase mb-0">Dự án của tôi</h1>
-    <div class="divider-custom divider-light">
-      <div class="divider-custom-line"></div>
-      <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-      <div class="divider-custom-line"></div>
+<header class="hero">
+  <div class="wrap">
+    <h1>Dự án <span class="grad">của tôi</span></h1>
+    <p>30+ dự án đã làm — từ shop Telegram, trình duyệt chống phát hiện, nền tảng giáo dục đến hệ thống quản lý kho. Ảnh dưới đây chụp từ ứng dụng thật đang chạy.</p>
+    <div class="filters" id="filters">
+      <button class="active" data-filter="all">Tất cả</button>
+      <button data-filter="shop">Bán hàng</button>
+      <button data-filter="toanvx">ToanVX / GPM</button>
+      <button data-filter="edu">Giáo dục</button>
+      <button data-filter="web">Web</button>
+      <button data-filter="aff">Shopee Affiliate</button>
+      <button data-filter="study">Học tập</button>
+      <button data-filter="tool">Tool khác</button>
     </div>
-    <p class="masthead-subheading font-weight-light mb-0">30+ dự án đã làm — từ shop Telegram, trình duyệt chống phát hiện, nền tảng giáo dục đến hệ thống quản lý kho.</p>
-    <p class="mt-3 mb-0"><a class="btn btn-outline-light" href="#portfolio">Xem giao diện thật</a></p>
   </div>
 </header>
 
-<!-- Portfolio / Real screenshots -->
-<section class="page-section portfolio" id="portfolio">
-  <div class="container">
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Giao diện thật</h2>
-    <div class="divider-custom">
-      <div class="divider-custom-line"></div>
-      <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-      <div class="divider-custom-line"></div>
-    </div>
-    <p class="text-center text-muted mb-5">Ảnh chụp từ ứng dụng thật đang chạy, không phải ảnh minh họa.</p>
-    <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-4 mb-5">
-        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModalWMS">
-          <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-          </div>
-          <img class="img-fluid" src="projects-img/wms.png" alt="Vĩnh Giang WMS — màn hình đăng nhập thật" />
-        </div>
-        <p class="text-center mt-2 mb-0"><strong>Vĩnh Giang WMS</strong><br /><span class="text-muted">Màn hình đăng nhập thật — Next.js 16</span></p>
-      </div>
-      <div class="col-md-6 col-lg-4 mb-5">
-        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModalMamVan">
-          <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-          </div>
-          <img class="img-fluid" src="projects-img/mamvan.png" alt="Mầm Văn — trang đăng nhập" />
-        </div>
-        <p class="text-center mt-2 mb-0"><strong>Mầm Văn</strong><br /><span class="text-muted">Trang đăng nhập — nền tảng giáo dục</span></p>
-      </div>
-      <div class="col-md-6 col-lg-4 mb-5">
-        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModalToeic">
-          <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-            <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-          </div>
-          <img class="img-fluid" src="projects-img/toeic.png" alt="TOEIC Master — giao diện luyện thi" />
-        </div>
-        <p class="text-center mt-2 mb-0"><strong>TOEIC Master</strong><br /><span class="text-muted">Giao diện luyện thi TOEIC</span></p>
+<section class="featured" id="projects">
+  <div class="wrap">
+    <div class="feat" data-cat="web">
+      <div class="shot"><img src="projects-img/wms.png" alt="Vĩnh Giang WMS — màn hình đăng nhập thật" /></div>
+      <div class="info">
+        <div class="kicker">Hệ thống quản lý kho · Thực tập Lam Phong Tech</div>
+        <h2>Vĩnh Giang WMS</h2>
+        <p>Hệ thống quản lý kho full-stack: web 86 trang, 120 API, PostgreSQL 33 bảng; app mobile 3 vai trò (Thủ kho / Xe nâng / Kiểm kê), quét barcode, FEFO picking. Tôi làm phần mobile trong kỳ thực tập 03–07/2026.</p>
+        <p class="tech">Next.js 16 · React 19 · PostgreSQL · Prisma 7 · Expo 51</p>
+        <a class="btn" href="https://github.com/Lam-Phong-Tech/WMS_Vinh_Giang" target="_blank" rel="noopener">Xem repo công ty</a>
       </div>
     </div>
-    <!-- Filters -->
-    <div class="text-center mb-4" id="filters">
-      <button class="btn btn-outline-secondary filter-btn active" data-filter="all">Tất cả</button>
-      <button class="btn btn-outline-secondary filter-btn" data-filter="shop">Bán hàng</button>
-      <button class="btn btn-outline-secondary filter-btn" data-filter="toanvx">ToanVX / GPM</button>
-      <button class="btn btn-outline-secondary filter-btn" data-filter="edu">Giáo dục</button>
-      <button class="btn btn-outline-secondary filter-btn" data-filter="web">Web</button>
-      <button class="btn btn-outline-secondary filter-btn" data-filter="aff">Shopee Affiliate</button>
-      <button class="btn btn-outline-secondary filter-btn" data-filter="study">Học tập</button>
-      <button class="btn btn-outline-secondary filter-btn" data-filter="tool">Tool khác</button>
+    <div class="feat" data-cat="edu">
+      <div class="shot"><img src="projects-img/mamvan.png" alt="Mầm Văn — trang đăng nhập" /></div>
+      <div class="info">
+        <div class="kicker">Nền tảng giáo dục</div>
+        <h2>Mầm Văn</h2>
+        <p>Nền tảng dạy học văn: giáo viên soạn bài, học sinh làm bài, chấm tự luận, AI Studio, cây tăng trưởng, điểm danh. Đang chạy live tại mamvan.pro.vn (VPS/MySQL) và Vercel/Supabase.</p>
+        <p class="tech">React · Node.js · MySQL · Supabase · AI (Groq/Gemini)</p>
+        <a class="btn" href="https://mamvan.pro.vn" target="_blank" rel="noopener">Mở Mầm Văn</a>
+      </div>
+    </div>
+    <div class="feat" data-cat="web">
+      <div class="shot"><img src="projects-img/toeic.png" alt="TOEIC Master — giao diện luyện thi" /></div>
+      <div class="info">
+        <div class="kicker">Luyện thi tiếng Anh</div>
+        <h2>TOEIC Master</h2>
+        <p>Luyện thi TOEIC: Part 1–7, audio, lưới câu hỏi, chấm điểm.</p>
+        <p class="tech">HTML · JavaScript</p>
+        <a class="btn" href="https://vuxuantoan.me/toeic/" target="_blank" rel="noopener">Mở TOEIC</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Project list -->
-<section class="page-section section-alt" id="projects">
-  <div class="container">
-    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Tất cả dự án</h2>
-    <div class="divider-custom">
-      <div class="divider-custom-line"></div>
-      <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-      <div class="divider-custom-line"></div>
+<section class="all">
+  <div class="wrap">
+    <h2>Tất cả dự án</h2>
+    <p class="sub">Nhấn vào tên dự án để mở link (nếu có).</p>
+
+    <div class="cat" data-cat="shop">Bán hàng</div>
+    <div class="plist" data-cat="shop">
+      <div class="proj"><h3><a href="https://t.me/Shophoatien_bot" target="_blank" rel="noopener">Telegram Shop — @Shophoatien_bot</a></h3><p>Bot bán tài khoản AI: Gemini Pro, Muse AI. Thanh toán VietQR + USDT BEP20, giao hàng tự động, kiểm tra link gốc, cảnh báo panel chết.</p><p class="tech">Node.js · SQLite · Telegram Bot API · VietQR · SePay</p></div>
+      <div class="proj"><h3><a href="https://t.me/shopnhatao_bot" target="_blank" rel="noopener">Shop Muse AI — @shopnhatao_bot</a></h3><p>Bot bán gói Jio AI Pro. Shop thứ hai, chạy song song với Shophoatien.</p><p class="tech">Node.js · Telegram Bot API</p></div>
+      <div class="proj"><h3>SIM Rental / SMS OTP</h3><p>Thuê SIM nhận OTP 20 phút miễn phí, gửi SMS qua SIM thật, tra cứu SMS. Module riêng trong Shophoatien, đang test nội bộ.</p><p class="tech">Node.js · Firebase · Telegram Bot API</p></div>
+      <div class="proj"><h3>AI Pro Family — bán slot</h3><p>Bán slot Google AI Pro family: 85.000đ/tháng hoặc 199.000đ/3 tháng. 11 slot trống.</p><p class="tech">Google One · Family Sharing</p></div>
     </div>
 
-    <!-- Bán hàng -->
-    <p class="cat-label mt-5" data-cat="shop">Bán hàng</p>
-    <div class="row g-4" data-cat="shop">
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Telegram Shop — @Shophoatien_bot</h5><p>Bot bán tài khoản AI: Gemini Pro, Muse AI. Thanh toán VietQR + USDT BEP20, giao hàng tự động, kiểm tra link gốc, cảnh báo panel chết.</p><p class="tech">Node.js · SQLite · Telegram Bot API · VietQR · SePay</p><a href="https://t.me/Shophoatien_bot" target="_blank" rel="noopener">Mở bot <i class="fas fa-external-link-alt"></i></a></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Shop Muse AI — @shopnhatao_bot</h5><p>Bot bán gói Jio AI Pro. Shop thứ hai, chạy song song với Shophoatien.</p><p class="tech">Node.js · Telegram Bot API</p><a href="https://t.me/shopnhatao_bot" target="_blank" rel="noopener">Mở bot <i class="fas fa-external-link-alt"></i></a></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>SIM Rental / SMS OTP</h5><p>Thuê SIM nhận OTP 20 phút miễn phí, gửi SMS qua SIM thật, tra cứu SMS. Module riêng trong Shophoatien, đang test nội bộ.</p><p class="tech">Node.js · Firebase · Telegram Bot API</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>AI Pro Family — bán slot</h5><p>Bán slot Google AI Pro family: 85.000đ/tháng hoặc 199.000đ/3 tháng. 11 slot trống.</p><p class="tech">Google One · Family Sharing</p></div></div>
+    <div class="cat" data-cat="toanvx">ToanVX / GPMLogin</div>
+    <div class="plist" data-cat="toanvx">
+      <div class="proj"><h3>ToanVX — trình duyệt chống phát hiện</h3><p>Rebuild GPMLogin Global sau khi mất source trong vụ cháy. .NET 8 + Avalonia, fingerprint engine, license Ed25519. GĐ0–GĐ2 hoàn thành, 17 vendor core đã xác minh.</p><p class="tech">.NET 8 · Avalonia 11 · C# · Ed25519</p></div>
+      <div class="proj"><h3>GPMLogin Server — Private Server</h3><p>Server license thay thế cho GPMLogin: API gateway + MCP server 13 tool, token ký Ed25519, device-bound.</p><p class="tech">Python · SQLite · Ed25519</p></div>
+      <div class="proj"><h3>ToanVX Mobile — điện thoại ảo</h3><p>POC điện thoại ảo chống phát hiện trên Android emulator, identity Galaxy S23. Đang giải quyết GĐ3 (che giấu emulator).</p><p class="tech">Android Emulator · ADB</p></div>
+      <div class="proj"><h3>GPMLogin Recovery</h3><p>Khôi phục source GPMLogin v4.3.6 từ memory dump (3.940 file .cs). v5 là NativeAOT nên không decompile được — giới hạn này được ghi rõ.</p><p class="tech">.NET · NativeAOT · ILSpy</p></div>
+      <div class="proj"><h3>GPM Unlimited Profiles</h3><p>Tool mở rộng số lượng profile GPMLogin không giới hạn.</p><p class="tech">Windows · GPMLogin</p></div>
+      <div class="proj"><h3>Proxy → Chrome Profile (49 proxy)</h3><p>Test 49 proxy Webshare, xếp hạng theo tốc độ, xuất file Excel import Chrome (49 profile toàn001–toàn047). 49/49 hoạt động.</p><p class="tech">Python · Webshare · Chrome</p></div>
+      <div class="proj"><h3>muse2api</h3><p>API bridge cho Muse: extension, admin panel, deploy tool.</p><p class="tech">JavaScript · Chrome Extension</p></div>
+      <div class="proj"><h3>Google AI Pro 2-Year Zero Cost (Auto)</h3><p>Tự động hóa đăng ký Google AI Pro 2 năm miễn phí: profiles, screenshots, templates, automation engine.</p><p class="tech">Python · Selenium</p></div>
+      <div class="proj"><h3>myjio</h3><p>Tool quản lý gói Jio (server.py, Caddyfile).</p><p class="tech">Python · Caddy</p></div>
     </div>
 
-    <!-- ToanVX / GPM -->
-    <p class="cat-label mt-5" data-cat="toanvx">ToanVX / GPMLogin</p>
-    <div class="row g-4" data-cat="toanvx">
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>ToanVX — trình duyệt chống phát hiện</h5><p>Rebuild GPMLogin Global sau khi mất source trong vụ cháy. .NET 8 + Avalonia, fingerprint engine, license Ed25519, profile quản lý, automation. GĐ0–GĐ2 hoàn thành, 17 vendor core đã xác minh.</p><p class="tech">.NET 8 · Avalonia 11 · C# · Ed25519</p><a href="https://github.com/vut08905/toanvx-browser" target="_blank" rel="noopener">Repo (private) <i class="fas fa-external-link-alt"></i></a></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>GPMLogin Server — Private Server</h5><p>Server license thay thế cho GPMLogin: API gateway + MCP server 13 tool, token ký Ed25519, device-bound.</p><p class="tech">Python · SQLite · Ed25519</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>ToanVX Mobile — điện thoại ảo</h5><p>POC điện thoại ảo chống phát hiện trên Android emulator, identity Galaxy S23. Đang giải quyết GĐ3 (che giấu emulator).</p><p class="tech">Android Emulator · ADB</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>GPMLogin Recovery</h5><p>Khôi phục source GPMLogin v4.3.6 từ memory dump (3.940 file .cs). v5 là NativeAOT nên không decompile được — giới hạn này được ghi rõ.</p><p class="tech">.NET · NativeAOT · ILSpy</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>GPM Unlimited Profiles</h5><p>Tool mở rộng số lượng profile GPMLogin không giới hạn.</p><p class="tech">Windows · GPMLogin</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Proxy → Chrome Profile (49 proxy)</h5><p>Test 49 proxy Webshare, xếp hạng theo tốc độ, xuất file Excel import Chrome (49 profile toàn001–toàn047). 49/49 hoạt động.</p><p class="tech">Python · Webshare · Chrome</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>muse2api</h5><p>API bridge cho Muse: extension, admin panel, deploy tool.</p><p class="tech">JavaScript · Chrome Extension</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Google AI Pro 2-Year Zero Cost (Auto)</h5><p>Tự động hóa đăng ký Google AI Pro 2 năm miễn phí: profiles, screenshots, templates, automation engine.</p><p class="tech">Python · Selenium</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>myjio</h5><p>Tool quản lý gói Jio (server.py, Caddyfile).</p><p class="tech">Python · Caddy</p></div></div>
+    <div class="cat" data-cat="edu">Giáo dục</div>
+    <div class="plist" data-cat="edu">
+      <div class="proj"><h3><a href="https://mamvan.pro.vn" target="_blank" rel="noopener">Mầm Văn — nền tảng học văn</a></h3><p>Giáo viên soạn bài, học sinh làm bài, chấm tự luận, AI Studio, cây tăng trưởng, điểm danh. Chạy live tại mamvan.pro.vn và Vercel/Supabase.</p><p class="tech">React · Node.js · MySQL · Supabase · AI (Groq/Gemini)</p></div>
+      <div class="proj"><h3>DocConvert-AI — PDF sao kê thành Excel</h3><p>Chuyển PDF scan sao kê ngân hàng thành Excel đúng form: OCR (Tesseract + RapidOCR), money-anchored grouping, balance chain, review UI. 5 ngân hàng. Build exe Windows onefile.</p><p class="tech">Python · Tesseract · RapidOCR · PyInstaller</p></div>
+      <div class="proj"><h3>SAOKE Tool — phân tích sao kê</h3><p>Từ file Excel sao kê đã convert, tái tạo file phân tích .xlsm như SAOKE_V2_2024: 7 sheet, 4 PivotTable, 3 Slicer, VBA nguyên vẹn.</p><p class="tech">Python · openpyxl · Excel VBA</p></div>
     </div>
 
-    <!-- Giáo dục -->
-    <p class="cat-label mt-5" data-cat="edu">Giáo dục</p>
-    <div class="row g-4" data-cat="edu">
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Mầm Văn — nền tảng học văn</h5><p>Nền tảng dạy học văn: giáo viên soạn bài, học sinh làm bài, chấm tự luận, AI Studio, cây tăng trưởng, điểm danh. Đang chạy live tại mamvan.pro.vn (VPS/MySQL) và Vercel/Supabase.</p><p class="tech">React · Node.js · MySQL · Supabase · AI (Groq/Gemini)</p><a href="https://mamvan.pro.vn" target="_blank" rel="noopener">Mở Mầm Văn <i class="fas fa-external-link-alt"></i></a></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>DocConvert-AI — PDF sao kê thành Excel</h5><p>Chuyển PDF scan sao kê ngân hàng thành Excel đúng form: OCR (Tesseract + RapidOCR), money-anchored grouping, balance chain, review UI. 5 ngân hàng (ACB, HDBank, Nam Á, Bản Việt, TCB). Build exe Windows onefile.</p><p class="tech">Python · Tesseract · RapidOCR · PyInstaller</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>SAOKE Tool — phân tích sao kê</h5><p>Từ file Excel sao kê đã convert, tái tạo file phân tích .xlsm như SAOKE_V2_2024: 7 sheet, 4 PivotTable, 3 Slicer, VBA nguyên vẹn.</p><p class="tech">Python · openpyxl · Excel VBA</p></div></div>
+    <div class="cat" data-cat="web">Web cá nhân / Site</div>
+    <div class="plist" data-cat="web">
+      <div class="proj"><h3><a href="https://vuxuantoan.me" target="_blank" rel="noopener">vuxuantoan.me — trang cá nhân</a></h3><p>Trang cá nhân + CV + dự án + sơ đồ Mầm Văn. GitHub Pages.</p><p class="tech">HTML · CSS · JavaScript</p></div>
+      <div class="proj"><h3><a href="https://vuxuantoan.me/toeic/" target="_blank" rel="noopener">TOEIC Master</a></h3><p>Luyện thi TOEIC: Part 1–7, audio, lưới câu hỏi, chấm điểm.</p><p class="tech">HTML · JavaScript</p></div>
+      <div class="proj"><h3><a href="https://github.com/Lam-Phong-Tech/WMS_Vinh_Giang" target="_blank" rel="noopener">Vĩnh Giang WMS — hệ thống quản lý kho</a></h3><p>Web Next.js (86 trang, 120 API, PostgreSQL 33 bảng) + app mobile Expo (3 vai trò, quét barcode, FEFO picking). Làm tại Lam Phong Tech (thực tập 03–07/2026), phần mobile là phần tôi làm.</p><p class="tech">Next.js 16 · React 19 · PostgreSQL · Prisma 7 · Expo 51</p></div>
     </div>
 
-    <!-- Web -->
-    <p class="cat-label mt-5" data-cat="web">Web cá nhân / Site</p>
-    <div class="row g-4" data-cat="web">
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>vuxuantoan.me — trang cá nhân</h5><p>Trang cá nhân + CV + dự án + sơ đồ Mầm Văn. GitHub Pages.</p><p class="tech">HTML · CSS · JavaScript</p><a href="https://vuxuantoan.me" target="_blank" rel="noopener">Mở site <i class="fas fa-external-link-alt"></i></a></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>TOEIC Master</h5><p>Luyện thi TOEIC: Part 1–7, audio, lưới câu hỏi, chấm điểm.</p><p class="tech">HTML · JavaScript</p><a href="https://vuxuantoan.me/toeic/" target="_blank" rel="noopener">Mở TOEIC <i class="fas fa-external-link-alt"></i></a></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Vĩnh Giang WMS — hệ thống quản lý kho</h5><p>Hệ thống quản lý kho full-stack: web Next.js (86 trang, 120 API, PostgreSQL 33 bảng) + app mobile Expo (3 vai trò: Thủ kho / Xe nâng / Kiểm kê, quét barcode, FEFO picking). Làm tại Lam Phong Tech (thực tập 03–07/2026), phần mobile là phần tôi làm.</p><p class="tech">Next.js 16 · React 19 · PostgreSQL · Prisma 7 · Expo 51</p><a href="https://github.com/Lam-Phong-Tech/WMS_Vinh_Giang" target="_blank" rel="noopener">Repo công ty <i class="fas fa-external-link-alt"></i></a></div></div>
+    <div class="cat" data-cat="aff">Shopee Affiliate / Săn Deal</div>
+    <div class="plist" data-cat="aff">
+      <div class="proj"><h3><a href="https://www.facebook.com/profile.php?id=1376252982246937" target="_blank" rel="noopener">Săn Deal — Facebook Page</a></h3><p>Page affiliate Shopee: đăng deal hằng ngày, video Flow, link affiliate. 667 lượt xem / 44 bài từ 16/10.</p><p class="tech">Facebook Page · Shopee Affiliate</p></div>
+      <div class="proj"><h3>Shopee Affiliate Extension</h3><p>Extension Chrome lấy link affiliate Shopee, server + cookies, tự động hóa đăng bài.</p><p class="tech">JavaScript · Chrome Extension</p></div>
+      <div class="proj"><h3>ggflow — Google Flow video automation</h3><p>Tự động tạo video từ Google Flow: engine, assembler, script parser, quản lý project.</p><p class="tech">Python · Google Flow</p></div>
+      <div class="proj"><h3>kichban — kịch bản video</h3><p>Tự động sinh kịch bản video, lấy card giá TopGia, download, loop state.</p><p class="tech">Python</p></div>
+      <div class="proj"><h3>tool_dang_bai_fanpage</h3><p>Tool đăng bài lên Fanpage qua mbasic CLI.</p><p class="tech">Batch · Facebook mbasic</p></div>
+      <div class="proj"><h3>toolaffiliate</h3><p>Hệ thống affiliate tổng: tool đăng bài, ggflow, kichban, Shopee.</p><p class="tech">Python · JavaScript</p></div>
     </div>
 
-    <!-- Shopee Affiliate -->
-    <p class="cat-label mt-5" data-cat="aff">Shopee Affiliate / Săn Deal</p>
-    <div class="row g-4" data-cat="aff">
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Săn Deal — Facebook Page</h5><p>Page affiliate Shopee: đăng deal hằng ngày, video Flow, link affiliate. 667 lượt xem / 44 bài từ 16/10.</p><p class="tech">Facebook Page · Shopee Affiliate</p><a href="https://www.facebook.com/profile.php?id=1376252982246937" target="_blank" rel="noopener">Mở Page <i class="fas fa-external-link-alt"></i></a></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Shopee Affiliate Extension</h5><p>Extension Chrome lấy link affiliate Shopee, server + cookies, tự động hóa đăng bài.</p><p class="tech">JavaScript · Chrome Extension</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>ggflow — Google Flow video automation</h5><p>Tự động tạo video từ Google Flow: engine, assembler, script parser, quản lý project.</p><p class="tech">Python · Google Flow</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>kichban — kịch bản video</h5><p>Tự động sinh kịch bản video, lấy card giá TopGia, download, loop state.</p><p class="tech">Python</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>tool_dang_bai_fanpage</h5><p>Tool đăng bài lên Fanpage qua mbasic CLI.</p><p class="tech">Batch · Facebook mbasic</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>toolaffiliate</h5><p>Hệ thống affiliate tổng: tool đăng bài, ggflow, kichban, Shopee.</p><p class="tech">Python · JavaScript</p></div></div>
+    <div class="cat" data-cat="study">Học tập / Bài tập</div>
+    <div class="plist" data-cat="study">
+      <div class="proj"><h3>Quản trị mạng — Packet Tracer</h3><p>Bài tập lớn: VLSM, DHCP + DNS + RIP v2, VLAN + router-on-a-stick, OSPF + ACL. Đang làm Bài 4 (CNTT 172.27.174.0/24).</p><p class="tech">Cisco Packet Tracer</p></div>
+      <div class="proj"><h3>PAC Chương 3 — Ngân sách vốn tối ưu</h3><p>Chương 3 tiểu luận: ngân sách vốn tối ưu 2026–2027 cho PINACO, 6 dự án, tổng 1.990 tỷ, WACC 8.5–9.3%.</p><p class="tech">Word · Tài chính doanh nghiệp</p></div>
+      <div class="proj"><h3>Fuel Management</h3><p>Quản lý nhiên liệu (TypeScript).</p><p class="tech">TypeScript</p></div>
+      <div class="proj"><h3>LTHDT — Lập trình hướng đối tượng</h3><p>Bài tập LTHDT (Java).</p><p class="tech">Java</p></div>
+      <div class="proj"><h3>Âm thanh — phân tích giọng nói</h3><p>Phân tích âm thanh: Viterbi, pitch/YIN, segment acoustics.</p><p class="tech">Python · Signal Processing</p></div>
+      <div class="proj"><h3>KTPM — Kiểm thử phần mềm</h3><p>Tài liệu + bài tập KTPM (LMS 3.1–8).</p><p class="tech">PDF</p></div>
+      <div class="proj"><h3>Điện tử / Điện máy (ĐTĐM)</h3><p>Bài giảng + bài tập lớn ĐTĐM.</p><p class="tech">PDF</p></div>
+      <div class="proj"><h3>Khai phá dữ liệu / Học máy</h3><p>Bài tập khai phá dữ liệu, nhận diện biển STOP (de12).</p><p class="tech">Python</p></div>
     </div>
 
-    <!-- Học tập -->
-    <p class="cat-label mt-5" data-cat="study">Học tập / Bài tập</p>
-    <div class="row g-4" data-cat="study">
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Quản trị mạng — Packet Tracer</h5><p>Bài tập lớn: VLSM, DHCP + DNS + RIP v2, VLAN + router-on-a-stick, OSPF + ACL. Đang làm Bài 4 (CNTT 172.27.174.0/24).</p><p class="tech">Cisco Packet Tracer</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>PAC Chương 3 — Ngân sách vốn tối ưu</h5><p>Chương 3 tiểu luận: ngân sách vốn tối ưu 2026–2027 cho PINACO, 6 dự án, tổng 1.990 tỷ, WACC 8.5–9.3%.</p><p class="tech">Word · Tài chính doanh nghiệp</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Fuel Management</h5><p>Quản lý nhiên liệu (TypeScript).</p><p class="tech">TypeScript</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>LTHDT — Lập trình hướng đối tượng</h5><p>Bài tập LTHDT (Java).</p><p class="tech">Java</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Âm thanh — phân tích giọng nói</h5><p>Phân tích âm thanh: Viterbi, pitch/YIN, segment acoustics.</p><p class="tech">Python · Signal Processing</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>KTPM — Kiểm thử phần mềm</h5><p>Tài liệu + bài tập KTPM (LMS 3.1–8).</p><p class="tech">PDF</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Điện tử / Điện máy (ĐTĐM)</h5><p>Bài giảng + bài tập lớn ĐTĐM.</p><p class="tech">PDF</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Khai phá dữ liệu / Học máy</h5><p>Bài tập khai phá dữ liệu, nhận diện biển STOP (de12).</p><p class="tech">Python</p></div></div>
+    <div class="cat" data-cat="tool">Tool / tiện ích khác</div>
+    <div class="plist" data-cat="tool">
+      <div class="proj"><h3><a href="https://github.com/vut08905/fbbot-googlesheet" target="_blank" rel="noopener">fbbot-googlesheet</a></h3><p>Chatbot Facebook Messenger kết nối Google Sheets.</p><p class="tech">JavaScript · Messenger API · Google Sheets</p></div>
+      <div class="proj"><h3>3D — game / đồ họa</h3><p>Game 3D (game3d) + đồ họa Wolfram.</p><p class="tech">HTML · JavaScript · Wolfram</p></div>
+      <div class="proj"><h3>mind-meld</h3><p>Ứng dụng web mind-meld (JavaScript).</p><p class="tech">JavaScript</p></div>
+      <div class="proj"><h3>chioi — web cá nhân</h3><p>Các bản web chioi / Chi_oi-main.</p><p class="tech">HTML</p></div>
+      <div class="proj"><h3>openclaw-app</h3><p>Ứng dụng OpenClaw (TypeScript).</p><p class="tech">TypeScript</p></div>
+      <div class="proj"><h3>Zalo Backup Tool</h3><p>Giải nén + sao lưu dữ liệu Zalo (9.5 GB, 20.419 file).</p><p class="tech">Windows · BITS</p></div>
+      <div class="proj"><h3>Wikipedia Knowledge Graph</h3><p>Bản đồ kiến thức Wikipedia: physics engine tự viết, gọi API Wikipedia thật.</p><p class="tech">JavaScript · Canvas · Wikipedia API</p></div>
+      <div class="proj"><h3>HyperFrames — Three.js video mold</h3><p>Video Three.js làm khuôn, AI vẽ lại theo khuôn (đang thử nghiệm).</p><p class="tech">Three.js · AI Video</p></div>
     </div>
 
-    <!-- Tool khác -->
-    <p class="cat-label mt-5" data-cat="tool">Tool / tiện ích khác</p>
-    <div class="row g-4" data-cat="tool">
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>fbbot-googlesheet</h5><p>Chatbot Facebook Messenger kết nối Google Sheets.</p><p class="tech">JavaScript · Messenger API · Google Sheets</p><a href="https://github.com/vut08905/fbbot-googlesheet" target="_blank" rel="noopener">Repo <i class="fas fa-external-link-alt"></i></a></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>3D — game / đồ họa</h5><p>Game 3D (game3d) + đồ họa Wolfram.</p><p class="tech">HTML · JavaScript · Wolfram</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>mind-meld</h5><p>Ứng dụng web mind-meld (JavaScript).</p><p class="tech">JavaScript</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>chioi — web cá nhân</h5><p>Các bản web chioi / Chi_oi-main.</p><p class="tech">HTML</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>openclaw-app</h5><p>Ứng dụng OpenClaw (TypeScript).</p><p class="tech">TypeScript</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Zalo Backup Tool</h5><p>Giải nén + sao lưu dữ liệu Zalo (9.5 GB, 20.419 file).</p><p class="tech">Windows · BITS</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>Wikipedia Knowledge Graph</h5><p>Bản đồ kiến thức Wikipedia: physics engine tự viết, gọi API Wikipedia thật.</p><p class="tech">JavaScript · Canvas · Wikipedia API</p></div></div>
-      <div class="col-md-6 col-lg-4"><div class="proj-card"><h5>HyperFrames — Three.js video mold</h5><p>Video Three.js làm khuôn, AI vẽ lại theo khuôn (đang thử nghiệm).</p><p class="tech">Three.js · AI Video</p></div></div>
-    </div>
-
-    <p class="text-center text-muted mt-5 mb-0">Muốn xem code hoặc hợp tác? Liên hệ qua <a href="https://github.com/vut08905" target="_blank" rel="noopener">GitHub</a> hoặc <a href="mailto:vut08905@vuxuantoan.me">vut08905@vuxuantoan.me</a>.</p>
+    <p style="margin-top:56px; color:var(--muted);">Muốn xem code hoặc hợp tác? Liên hệ qua <a href="https://github.com/vut08905" target="_blank" rel="noopener">GitHub</a> hoặc <a href="mailto:vut08905@vuxuantoan.me">vut08905@vuxuantoan.me</a>.</p>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer text-center">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 mb-5 mb-lg-0">
-        <h4 class="text-uppercase mb-4">Liên hệ</h4>
-        <p class="lead mb-0">vut08905@vuxuantoan.me<br />0333 041 205</p>
-      </div>
-      <div class="col-lg-4 mb-5 mb-lg-0">
-        <h4 class="text-uppercase mb-4">Tìm tôi ở</h4>
-        <a class="btn btn-outline-light btn-social mx-1" href="https://github.com/vut08905" target="_blank" rel="noopener"><i class="fab fa-fw fa-github"></i></a>
-        <a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/profile.php?id=1376252982246937" target="_blank" rel="noopener"><i class="fab fa-fw fa-facebook-f"></i></a>
-        <a class="btn btn-outline-light btn-social mx-1" href="https://t.me/Shophoatien_bot" target="_blank" rel="noopener"><i class="fab fa-fw fa-telegram"></i></a>
-      </div>
-      <div class="col-lg-4">
-        <h4 class="text-uppercase mb-4">Về trang này</h4>
-        <p class="lead mb-0">Danh sách dự án của Vũ Xuân Toàn. Giao diện dùng template Freelancer (Start Bootstrap, MIT) + ảnh chụp thật từ ứng dụng.</p>
-      </div>
-    </div>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Vũ Xuân Toàn</span>
+    <span><a href="https://github.com/vut08905" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vut08905@vuxuantoan.me">Email</a> · <a href="https://t.me/Shophoatien_bot" target="_blank" rel="noopener">Telegram</a></span>
   </div>
 </footer>
-<div class="copyright py-4 text-center text-white">
-  <div class="container"><small>Copyright &copy; Vũ Xuân Toàn 2026</small></div>
-</div>
 
-<!-- Portfolio Modals -->
-<div class="portfolio-modal modal fade" id="portfolioModalWMS" tabindex="-1" aria-labelledby="portfolioModalWMS" aria-hidden="true">
-  <div class="modal-dialog modal-xl"><div class="modal-content">
-    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-    <div class="modal-body text-center pb-5">
-      <div class="container"><div class="row justify-content-center"><div class="col-lg-8">
-        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Vĩnh Giang WMS</h2>
-        <div class="divider-custom"><div class="divider-custom-line"></div><div class="divider-custom-icon"><i class="fas fa-star"></i></div><div class="divider-custom-line"></div></div>
-        <img class="img-fluid rounded mb-5" src="projects-img/wms.png" alt="Vĩnh Giang WMS — màn hình đăng nhập thật" />
-        <p class="mb-4">Màn hình đăng nhập thật của hệ thống quản lý kho Vĩnh Giang (Next.js 16). Web 86 trang, 120 API, PostgreSQL 33 bảng; app mobile Expo 3 vai trò, quét barcode, FEFO picking. Tôi làm phần mobile trong kỳ thực tập tại Lam Phong Tech (03–07/2026).</p>
-        <button class="btn btn-primary" data-bs-dismiss="modal"><i class="fas fa-xmark fa-fw"></i> Đóng</button>
-      </div></div></div>
-    </div>
-  </div></div>
-</div>
-<div class="portfolio-modal modal fade" id="portfolioModalMamVan" tabindex="-1" aria-labelledby="portfolioModalMamVan" aria-hidden="true">
-  <div class="modal-dialog modal-xl"><div class="modal-content">
-    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-    <div class="modal-body text-center pb-5">
-      <div class="container"><div class="row justify-content-center"><div class="col-lg-8">
-        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Mầm Văn</h2>
-        <div class="divider-custom"><div class="divider-custom-line"></div><div class="divider-custom-icon"><i class="fas fa-star"></i></div><div class="divider-custom-line"></div></div>
-        <img class="img-fluid rounded mb-5" src="projects-img/mamvan.png" alt="Mầm Văn — trang đăng nhập" />
-        <p class="mb-4">Nền tảng học văn: giáo viên soạn bài, học sinh làm bài, chấm tự luận, AI Studio, cây tăng trưởng. Đang chạy tại mamvan.pro.vn.</p>
-        <button class="btn btn-primary" data-bs-dismiss="modal"><i class="fas fa-xmark fa-fw"></i> Đóng</button>
-      </div></div></div>
-    </div>
-  </div></div>
-</div>
-<div class="portfolio-modal modal fade" id="portfolioModalToeic" tabindex="-1" aria-labelledby="portfolioModalToeic" aria-hidden="true">
-  <div class="modal-dialog modal-xl"><div class="modal-content">
-    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-    <div class="modal-body text-center pb-5">
-      <div class="container"><div class="row justify-content-center"><div class="col-lg-8">
-        <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">TOEIC Master</h2>
-        <div class="divider-custom"><div class="divider-custom-line"></div><div class="divider-custom-icon"><i class="fas fa-star"></i></div><div class="divider-custom-line"></div></div>
-        <img class="img-fluid rounded mb-5" src="projects-img/toeic.png" alt="TOEIC Master — giao diện luyện thi" />
-        <p class="mb-4">Luyện thi TOEIC: Part 1–7, audio, lưới câu hỏi, chấm điểm. Chạy tại vuxuantoan.me/toeic/.</p>
-        <button class="btn btn-primary" data-bs-dismiss="modal"><i class="fas fa-xmark fa-fw"></i> Đóng</button>
-      </div></div></div>
-    </div>
-  </div></div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="freelancer/js/scripts.js"></script>
 <script>
 (function(){
-  var btns = document.querySelectorAll('#filters .filter-btn');
+  var btns = document.querySelectorAll('#filters button');
   function applyFilter(f){
-    document.querySelectorAll('#projects [data-cat]').forEach(function(el){
-      var cats = el.getAttribute('data-cat').split(' ');
-      el.style.display = (f === 'all' || cats.indexOf(f) !== -1) ? '' : 'none';
+    document.querySelectorAll('.feat, .cat, .plist').forEach(function(el){
+      var c = el.getAttribute('data-cat');
+      el.style.display = (f === 'all' || c === f) ? '' : 'none';
     });
     btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-filter') === f); });
   }
