@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dự án — Vũ Xuân Toàn | Vu Xuan Toan Tech</title>
+  <meta name="description" content="Toàn bộ dự án của Vũ Xuân Toàn: Telegram shop, ToanVX antidetect browser, Mầm Văn, DocConvert-AI, Shopee Affiliate, Vĩnh Giang WMS và các tool tự động hóa.">
+  <link rel="icon" type="image/svg+xml" href="https://vuxuantoan.me/favicon.svg">
+  <link rel="canonical" href="https://vuxuantoan.me/projects.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vuxuantoan.me/projects.html">
+  <meta property="og:site_name" content="Vu Xuan Toan Tech">
+  <meta property="og:title" content="Dự án — Vũ Xuân Toàn">
+  <meta property="og:description" content="Toàn bộ dự án của Vũ Xuân Toàn: shop Telegram, trình duyệt antidetect ToanVX, nền tảng học Văn Mầm Văn, DocConvert-AI, Shopee Affiliate và hơn thế nữa.">
+  <meta property="og:image" content="https://vuxuantoan.me/og-image.svg">
+  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .projects-hero{max-width:1100px;margin:0 auto;padding:70px 6% 10px;text-align:left}
+    .projects-hero h1{font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.15;letter-spacing:-.02em}
+    .projects-hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .projects-hero p{color:var(--mut);font-size:1.1rem;max-width:720px;margin-top:16px;line-height:1.75}
+    .filters{display:flex;flex-wrap:wrap;gap:10px;max-width:1100px;margin:0 auto;padding:30px 6% 0}
+    .filter-btn{padding:9px 18px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--mut);font-family:Inter,sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:.25s}
+    .filter-btn:hover{color:var(--txt);border-color:rgba(255,255,255,.25)}
+    .filter-btn.active{background:linear-gradient(135deg,var(--a),#e0531a);color:#fff;border-color:transparent}
+    .featured{max-width:1100px;margin:0 auto;padding:40px 6% 10px}
+    .featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:24px}
+    .project-shot{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+    .project-shot:hover{transform:translateY(-6px);border-color:rgba(255,126,54,.45);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+    .project-shot img{width:100%;height:210px;object-fit:cover;object-position:top;display:block;border-bottom:1px solid var(--line)}
+    .project-shot .shot-body{padding:22px}
+    .project-shot h3{font-size:1.2rem;margin:6px 0 8px}
+    .project-shot p{color:var(--mut);font-size:.93rem;line-height:1.65}
+    .cat-section{max-width:1100px;margin:0 auto;padding:45px 6% 0}
+    .cat-section h2{font-size:1.6rem;margin-bottom:6px}
+    .cat-section h2::after{content:"";display:block;width:48px;height:3px;margin-top:8px;background:linear-gradient(90deg,var(--a),var(--b));border-radius:3px}
+    .cat-section .cat-sub{color:var(--mut);font-size:.95rem;margin-bottom:22px}
+    .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+    .proj-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .3s,border-color .3s,box-shadow .3s;display:flex;flex-direction:column}
+    .proj-card:hover{transform:translateY(-5px);border-color:rgba(255,126,54,.4);background:var(--card-hover);box-shadow:0 14px 35px rgba(0,0,0,.3)}
+    .proj-card h3{font-size:1.12rem;margin:6px 0 8px}
+    .proj-card p{color:var(--mut);font-size:.9rem;line-height:1.65;flex:1}
+    .proj-card .proj-links{margin-top:14px;display:flex;gap:14px;flex-wrap:wrap}
+    .proj-card .proj-links a{color:var(--a);text-decoration:none;font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:5px}
+    .proj-card .proj-links a:hover{transform:translateX(3px)}
+    .proj-card .proj-links a span{color:var(--mut);font-weight:400}
+    .proj-icon{font-size:1.6rem;line-height:1}
+    .hidden-cat{display:none}
+    .count-badge{font-size:.75rem;color:var(--mut);font-weight:500}
+  </style>
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <header class="nav">
+    <a href="/" class="logo">Vu Xuan Toan<span> Tech</span><span class="logo-badge">Portfolio</span></a>
+    <button class="menu-btn" onclick="document.getElementById('nav-links').classList.toggle('open')">☰</button>
+    <nav id="nav-links">
+      <a href="/">Trang chủ</a>
+      <a href="/projects.html" style="color:var(--txt)">Dự án</a>
+      <a href="/about.html">Về tôi</a>
+      <a href="https://github.com/vut08905" target="_blank" rel="noopener">GitHub</a>
+      <a href="/#contact" class="btn small">Liên hệ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="projects-hero">
+      <span class="badge"><span class="dot"></span> 30+ dự án · Code, vận hành và bàn giao thật</span>
+      <h1>Mọi thứ tôi đã <em>xây dựng</em></h1>
+      <p>Từ shop Telegram bán tài khoản AI, trình duyệt antidetect ToanVX, nền tảng học Văn Mầm Văn, tới tool Shopee Affiliate và các đồ án ở trường — đây là toàn bộ dự án tôi đã làm, có ảnh giao diện thật ở những dự án có UI.</p>
+    </section>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">Tất cả</button>
+      <button class="filter-btn" data-filter="shop">Bán hàng</button>
+      <button class="filter-btn" data-filter="toanvx">ToanVX / GPM</button>
+      <button class="filter-btn" data-filter="edu">Giáo dục</button>
+      <button class="filter-btn" data-filter="web">Web</button>
+      <button class="filter-btn" data-filter="affiliate">Shopee Affiliate</button>
+      <button class="filter-btn" data-filter="school">Học tập</button>
+      <button class="filter-btn" data-filter="tool">Tool khác</button>
+    </div>
+
+    <!-- Featured with real screenshots -->
+    <section class="featured" data-cat="edu web">
+      <h2 style="font-size:1.6rem">Nổi bật — có ảnh giao diện thật</h2>
+      <div class="featured-grid">
+        <article class="project-shot" data-cat="edu">
+          <img src="projects-img/mamvan.png" alt="Mầm Văn — trang đăng nhập" loading="lazy">
+          <div class="shot-body">
+            <span class="tag">Giáo dục · Nền tảng học Văn</span>
+            <h3>Mầm Văn</h3>
+            <p>Nền tảng học Văn lớp 7: giáo viên soạn bài, học sinh học theo luồng, chấm tự luận, điểm danh và cây tăng trưởng. Chạy song song Vercel + Supabase và VPS MySQL tại mamvan.pro.vn.</p>
+            <ul class="tech"><li>React</li><li>Node.js</li><li>MySQL</li><li>Supabase</li><li>AI Groq/Gemini</li></ul>
+            <a class="link" href="https://mamvan.pro.vn" target="_blank" rel="noopener">Truy cập mamvan.pro.vn →</a>
+          </div>
+        </article>
+        <article class="project-shot" data-cat="web edu">
+          <img src="projects-img/toeic.png" alt="TOEIC Master — giao diện luyện thi" loading="lazy">
+          <div class="shot-body">
+            <span class="tag">Web · Luyện thi TOEIC</span>
+            <h3>TOEIC Master</h3>
+            <p>Web luyện thi TOEIC: 7 part, 200 câu, nghe audio, bấm giờ, bảng câu hỏi và chế độ học mẹo. Chạy ngay trên vuxuantoan.me/toeic/.</p>
+            <ul class="tech"><li>HTML</li><li>JavaScript</li><li>Audio</li></ul>
+            <a class="link" href="/toeic/">Mở TOEIC Master →</a>
+          </div>
+        </article>
+        <article class="project-shot" data-cat="web">
+          <img src="projects-img/wms.png" alt="WMS Vĩnh Giang — mockup app mobile" loading="lazy">
+          <div class="shot-body">
+            <span class="tag">Web · Quản lý kho</span>
+            <h3>WMS Vĩnh Giang</h3>
+            <p>Hệ thống quản lý kho: web Next.js 86 trang, 120 API, PostgreSQL 33 bảng, và app mobile Expo (Thủ kho – Xe nâng – Kiểm kê, quét QR/barcode, FEFO). Thực tập tại Lam Phong Tech 03–07/2026.</p>
+            <ul class="tech"><li>Next.js</li><li>Expo / React Native</li><li>PostgreSQL</li><li>Prisma</li><li>Codemagic</li></ul>
+            <a class="link" href="https://github.com/vut08905/vinhgiang" target="_blank" rel="noopener">Xem mockup trên GitHub →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 1. Shop -->
+    <section class="cat-section" data-cat="shop">
+      <h2>🛒 Bán hàng <span class="count-badge">4 dự án</span></h2>
+      <p class="cat-sub">Shop Telegram và bán slot AI Pro.</p>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <span class="proj-icon">🤖</span>
+          <span class="tag">Telegram Bot · Node.js</span>
+          <h3>@Shophoatien_bot</h3>
+          <p>Shop Telegram bán tài khoản AI tự động: thanh toán VietQR/SePay/USDT, giao hàng tự động khi đúng số tiền + mã đơn, kiểm tra link gốc và cảnh báo khi panel chết. Chạy 24/7 trên VPS.</p>
+          <ul class="tech"><li>Node.js</li><li>SQLite</li><li>VietQR</li><li>SePay</li><li>USDT BEP20</li></ul>
+          <div class="proj-links"><a href="https://t.me/Shophoatien_bot" target="_blank" rel="noopener">Mở bot →</a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📱</span>
+          <span class="tag">Telegram Bot · Jio</span>
+          <h3>@shopnhatao_bot</h3>
+          <p>Bot Telegram bán gói Jio, tích hợp Reseller API, giao hàng tự động.</p>
+          <ul class="tech"><li>JavaScript</li><li>Reseller API</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/shopmuseai-bot" target="_blank" rel="noopener">GitHub <span>(private)</span></a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📲</span>
+          <span class="tag">Module · SIM Rental</span>
+          <h3>SIM Rental (trong @Shophoatien_bot)</h3>
+          <p>Thuê SIM nhận OTP: phiên 20 phút, điều khiển qua Firebase, gửi SMS bằng SIM thật. Module test riêng, chỉ admin dùng.</p>
+          <ul class="tech"><li>Node.js</li><li>Firebase</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">✨</span>
+          <span class="tag">AI Pro · Family slot</span>
+          <h3>AI Pro Family slot</h3>
+          <p>Bán slot Google AI Pro: 85.000đ/tháng hoặc 199.000đ/3 tháng, 11 slot trống.</p>
+          <ul class="tech"><li>Google AI Pro</li><li>Family Sharing</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 2. ToanVX / GPM -->
+    <section class="cat-section" data-cat="toanvx">
+      <h2>🛡️ ToanVX / GPMLogin <span class="count-badge">9 dự án</span></h2>
+      <p class="cat-sub">Trình duyệt antidetect và hệ sinh thái xung quanh.</p>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <span class="proj-icon">🌐</span>
+          <span class="tag">Antidetect Browser · C#</span>
+          <h3>ToanVX</h3>
+          <p>Trình duyệt antidetect thương hiệu cá nhân: rebuild từ GPMLogin v4.3.6, .NET 8 + Avalonia 11, fingerprint engine, license Ed25519 ký theo thiết bị, Private Server riêng.</p>
+          <ul class="tech"><li>.NET 8</li><li>Avalonia 11</li><li>C#</li><li>Ed25519</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/toanvx-browser" target="_blank" rel="noopener">GitHub <span>(private)</span></a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🔧</span>
+          <span class="tag">Rebuild · C#</span>
+          <h3>GPMLogin Rebuild</h3>
+          <p>Khôi phục source GPMLogin từ memory dump sau khi máy dev chính bị cháy: v4.3.6 khôi phục gần như đầy đủ, v5 NativeAOT không decompile được — đó là giới hạn thật.</p>
+          <ul class="tech"><li>.NET 8</li><li>Avalonia</li><li>ReactiveUI</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📱</span>
+          <span class="tag">Mobile · Android</span>
+          <h3>ToanVX Mobile</h3>
+          <p>Điện thoại ảo chống phát hiện: POC trên máy ảo Android với identity Galaxy S23, đang giải bài toán ẩn emulator ở GĐ3.</p>
+          <ul class="tech"><li>Android</li><li>Emulator</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🧩</span>
+          <span class="tag">Core · Vendor</span>
+          <h3>ToanVX-Cores</h3>
+          <p>17 vendor core cho ToanVX (GĐ1–GĐ2 đã pass).</p>
+          <ul class="tech"><li>Chromium</li><li>Fingerprint</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🔗</span>
+          <span class="tag">Relay · Node.js</span>
+          <h3>Muse Relay</h3>
+          <p>Relay chat giữa 2 Muse qua VPS: server Node zero-dependency, token riêng từng Muse, lưu tin nhắn JSONL.</p>
+          <ul class="tech"><li>Node.js</li><li>HTTP</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🎁</span>
+          <span class="tag">Automation · Python</span>
+          <h3>Google AI Pro Auto</h3>
+          <p>Tool tự động lấy Google AI Pro 2 năm, 0đ (automation engine + profiles).</p>
+          <ul class="tech"><li>Python</li><li>Automation</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🔌</span>
+          <span class="tag">API · Extension</span>
+          <h3>muse2api</h3>
+          <p>Proxy/extension cho Muse API, có trang admin và bộ test.</p>
+          <ul class="tech"><li>JavaScript</li><li>Extension</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">👤</span>
+          <span class="tag">Profiles · GPM</span>
+          <h3>GPM Unlimited Profiles</h3>
+          <p>Profile GPM không giới hạn (GPM_VIP_01).</p>
+          <ul class="tech"><li>GPMLogin</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🗂️</span>
+          <span class="tag">UI · HTML</span>
+          <h3>gpmlogin-ui</h3>
+          <p>Distribution GPMLogin v5.1.2 + bản UI dựng lại bằng tay.</p>
+          <ul class="tech"><li>HTML</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/gpmlogin-ui" target="_blank" rel="noopener">GitHub →</a></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. Education -->
+    <section class="cat-section" data-cat="edu">
+      <h2>📚 Giáo dục — Mầm Văn / DocConvert / SAOKE <span class="count-badge">3 dự án</span></h2>
+      <p class="cat-sub">Làm cùng DuongDADEV.</p>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <span class="proj-icon">🌱</span>
+          <span class="tag">EdTech · React + Node</span>
+          <h3>Mầm Văn</h3>
+          <p>Nền tảng học Văn lớp 7: 3 vai trò (giáo viên / học sinh / phụ huynh), AI chấm và gợi ý, điểm danh, XP và cây tăng trưởng. Xem ảnh giao diện thật ở trên.</p>
+          <ul class="tech"><li>React</li><li>Node.js</li><li>MySQL</li><li>Supabase</li><li>Groq/Gemini</li></ul>
+          <div class="proj-links"><a href="https://mamvan.pro.vn" target="_blank" rel="noopener">mamvan.pro.vn →</a><a href="/so-do-mam-van.html">Sơ đồ hệ thống →</a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📄</span>
+          <span class="tag">OCR · Python</span>
+          <h3>DocConvert-AI</h3>
+          <p>Chuyển PDF scan sao kê ngân hàng (ACB, HDBank, Nam Á, Bản Việt, Techcombank) thành Excel đúng form ngân hàng: OCR Tesseract + RapidOCR, money-anchored grouping, balance-chain check, GUI + bản .exe offline.</p>
+          <ul class="tech"><li>Python</li><li>Tesseract</li><li>RapidOCR</li><li>PyInstaller</li><li>Tkinter</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📊</span>
+          <span class="tag">Excel · VBA</span>
+          <h3>SAOKE Tool</h3>
+          <p>Tool riêng: nhận file Excel sao kê đã convert và tái tạo file phân tích .xlsm kiểu SAOKE (7 sheet, 4 PivotTable, 3 Slicer, VBA nguyên vẹn).</p>
+          <ul class="tech"><li>Python</li><li>openpyxl</li><li>VBA</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. Web -->
+    <section class="cat-section" data-cat="web">
+      <h2>🌍 Web cá nhân / Site <span class="count-badge">3 dự án</span></h2>
+      <p class="cat-sub">Web chạy thật trên vuxuantoan.me.</p>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <span class="proj-icon">🏠</span>
+          <span class="tag">Personal Site · HTML</span>
+          <h3 vuxuantoan.me</h3>
+          <p>Web cá nhân: giới thiệu, Person JSON-LD để tìm kiếm "Vũ Xuân Toàn" ra, trang About và TOEIC. Chính trang bạn đang xem.</p>
+          <ul class="tech"><li>HTML</li><li>CSS</li><li>GitHub Pages</li></ul>
+          <div class="proj-links"><a href="/">Trang chủ →</a><a href="/about.html">Về tôi →</a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🎧</span>
+          <span class="tag">TOEIC · Web App</span>
+          <h3>TOEIC Master</h3>
+          <p>Luyện thi TOEIC 7 part / 200 câu, nghe audio, bấm giờ, chế độ học mẹo. Xem ảnh giao diện thật ở trên.</p>
+          <ul class="tech"><li>HTML</li><li>JavaScript</li></ul>
+          <div class="proj-links"><a href="/toeic/">Mở TOEIC Master →</a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📦</span>
+          <span class="tag">WMS · Next.js + Expo</span>
+          <h3>WMS Vĩnh Giang</h3>
+          <p>Hệ thống quản lý kho Vĩnh Giang: web 86 trang, 120 API, PostgreSQL 33 bảng, app mobile 3 vai trò. Xem ảnh mockup thật ở trên.</p>
+          <ul class="tech"><li>Next.js 16</li><li>Expo 51</li><li>PostgreSQL 16</li><li>Prisma 7</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/vinhgiang" target="_blank" rel="noopener">GitHub →</a></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. Affiliate -->
+    <section class="cat-section" data-cat="affiliate">
+      <h2>🛍️ Shopee Affiliate / Săn Deal <span class="count-badge">6 dự án</span></h2>
+      <p class="cat-sub">Hệ thống affiliate tự động: tool, extension, video Flow, kịch bản, kho sản phẩm.</p>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <span class="proj-icon">🧰</span>
+          <span class="tag">Affiliate · Python</span>
+          <h3>toolaffiliate</h3>
+          <p>Tool affiliate chính: quản lý sản phẩm, link affiliate, pipeline đăng bài.</p>
+          <ul class="tech"><li>Python</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🎬</span>
+          <span class="tag">Video · Google Flow</span>
+          <h3>ggflow</h3>
+          <p>Tự động tạo video bằng Google Flow: engine, ráp video, parse kịch bản, quản lý cookie và project.</p>
+          <ul class="tech"><li>Python</li><li>Google Flow</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📝</span>
+          <span class="tag">Script · Automation</span>
+          <h3>kichban</h3>
+          <p>Tự động viết kịch bản video: sinh scene, lấy card sản phẩm, render và tải video.</p>
+          <ul class="tech"><li>Python</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🧩</span>
+          <span class="tag">Extension · Chrome</span>
+          <h3>Shopee Extension</h3>
+          <p>Extension Chrome lấy link affiliate Shopee hàng loạt: content script, popup, background, server bridge.</p>
+          <ul class="tech"><li>JavaScript</li><li>Chrome Extension</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📣</span>
+          <span class="tag">Facebook · Automation</span>
+          <h3>tool_dang_bai_fanpage</h3>
+          <p>Tool tự đăng bài lên Fanpage (mbasic CLI), chạy theo lịch.</p>
+          <ul class="tech"><li>Batch</li><li>Facebook mbasic</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🏪</span>
+          <span class="tag">Fanpage · 44 bài</span>
+          <h3>Săn Deal (Page)</h3>
+          <p>Fanpage Shopee affiliate: 44 bài, 667 views, bài top 212 views. Pipeline tạm dừng chờ quyết định Shopee.</p>
+          <ul class="tech"><li>Facebook Page</li><li>Shopee Affiliate</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 6. School -->
+    <section class="cat-section" data-cat="school">
+      <h2>🎓 Học tập / Bài tập <span class="count-badge">8 dự án</span></h2>
+      <p class="cat-sub">Đồ án và bài tập ở trường.</p>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <span class="proj-icon">🌐</span>
+          <span class="tag">Mạng · Packet Tracer</span>
+          <h3>Quản trị mạng — Bài 1–4</h3>
+          <p>VLSM, DHCP/DNS/RIP, VLAN + router-on-a-stick, và Bài 4: OSPF + ACL + DHCP relay + switch L3.</p>
+          <ul class="tech"><li>Cisco</li><li>Packet Tracer</li><li>OSPF</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">💰</span>
+          <span class="tag">Tài chính · Word</span>
+          <h3>PAC Chương 3 — Ngân sách vốn tối ưu</h3>
+          <p>Ngân sách vốn tối ưu 2026–2027 cho Pinaco (PAC): 6 dự án, 1.990 tỷ, WACC và IRR ước tính.</p>
+          <ul class="tech"><li>Word</li><li>Excel Model</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📄</span>
+          <span class="tag">CV · Developer</span>
+          <h3>CV Developer</h3>
+          <p>CV xin việc vị trí Developer: thực tập Lam Phong Tech, dự án Mầm Văn và DocConvert-AI.</p>
+          <ul class="tech"><li>Word</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🔊</span>
+          <span class="tag">Xử lý tín hiệu · Python</span>
+          <h3>Phân tích âm thanh</h3>
+          <p>Phân tích âm thanh: thuật toán Viterbi, đo cao độ (YIN), phân đoạn âm thanh theo thời gian.</p>
+          <ul class="tech"><li>Python</li><li>Viterbi</li><li>YIN</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📐</span>
+          <span class="tag">OOP · Java</span>
+          <h3>lthdt</h3>
+          <p>Lập trình hướng đối tượng: bài tập và đồ án OOP.</p>
+          <ul class="tech"><li>Java</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/lthdt" target="_blank" rel="noopener">GitHub <span>(private)</span></a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🛑</span>
+          <span class="tag">Nhận diện · ML</span>
+          <h3>Nhận diện biển STOP</h3>
+          <p>Đề 12: nhận diện biển báo STOP (lớp D19CN.3).</p>
+          <ul class="tech"><li>Python</li><li>ML</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">⚡</span>
+          <span class="tag">Đồ án · Điện tử</span>
+          <h3>Đồ án điện tử</h3>
+          <p>Đồ án điện tử (ĐTĐM): bài tập hoàn chỉnh, bài giảng và bài tập lớn.</p>
+          <ul class="tech"><li>Điện tử</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📊</span>
+          <span class="tag">KTPM · LMS</span>
+          <h3>Kỹ thuật phần mềm</h3>
+          <p>Bài tập LMS 3.1–8 và bài tập thực hành (KTPM).</p>
+          <ul class="tech"><li>LMS</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 7. Tools -->
+    <section class="cat-section" data-cat="tool">
+      <h2>🧪 Tool / tiện ích khác <span class="count-badge">8 dự án</span></h2>
+      <p class="cat-sub">Chatbot, quản lý nhiên liệu, game và tool lẻ.</p>
+      <div class="proj-grid">
+        <article class="proj-card">
+          <span class="proj-icon">💬</span>
+          <span class="tag">Chatbot · JavaScript</span>
+          <h3>fbbot-googlesheet</h3>
+          <p>Chatbot Facebook Messenger tự trả lời tiếng Việt, tích hợp Google Sheets.</p>
+          <ul class="tech"><li>JavaScript</li><li>Google Sheets</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/fbbot-googlesheet" target="_blank" rel="noopener">GitHub →</a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">⛽</span>
+          <span class="tag">Quản lý · TypeScript</span>
+          <h3>fuel-management</h3>
+          <p>App quản lý nhiên liệu (TypeScript).</p>
+          <ul class="tech"><li>TypeScript</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🐙</span>
+          <span class="tag">App · TypeScript</span>
+          <h3>openclaw-app</h3>
+          <p>App TypeScript (OpenClaw).</p>
+          <ul class="tech"><li>TypeScript</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/openclaw-app" target="_blank" rel="noopener">GitHub →</a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🧠</span>
+          <span class="tag">App · JavaScript</span>
+          <h3>mind-meld</h3>
+          <p>App JavaScript.</p>
+          <ul class="tech"><li>JavaScript</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/mind-meld" target="_blank" rel="noopener">GitHub →</a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🎮</span>
+          <span class="tag">Game · HTML</span>
+          <h3>game3d / 3d</h3>
+          <p>Game 3D và đồ họa 3D (Wolfram).</p>
+          <ul class="tech"><li>HTML</li><li>Wolfram</li></ul>
+          <div class="proj-links"><a href="https://github.com/vut08905/game3d" target="_blank" rel="noopener">GitHub →</a></div>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">👩</span>
+          <span class="tag">Web · HTML</span>
+          <h3>chioi / chioi1 / chioi2</h3>
+          <p>Web "Chị ơi" — 3 repo HTML.</p>
+          <ul class="tech"><li>HTML</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">📱</span>
+          <span class="tag">Jio · Python</span>
+          <h3>myjio</h3>
+          <p>Tool Jio: server và scanner (server.py, myjio.py).</p>
+          <ul class="tech"><li>Python</li></ul>
+        </article>
+        <article class="proj-card">
+          <span class="proj-icon">🗃️</span>
+          <span class="tag">Backup · 72 zip</span>
+          <h3>Backup_D_Drive</h3>
+          <p>72 file zip backup toàn bộ ổ D: code, tài liệu, tool và dữ liệu.</p>
+          <ul class="tech"><li>Google Drive</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" style="text-align:center">
+      <h2>Muốn làm việc cùng tôi?</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto">Tôi nhận làm web, tool tự động hóa và bot Telegram. Liên hệ qua GitHub hoặc xem CV.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/vut08905" target="_blank" rel="noopener">GitHub của tôi</a>
+        <a class="btn ghost" href="/about.html">Về tôi</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Vũ Xuân Toàn · <a href="/">vuxuantoan.me</a> · <a href="https://github.com/vut08905" target="_blank" rel="noopener">GitHub</a></p>
+  </footer>
+
+  <script>
+    // Category filter
+    const btns = document.querySelectorAll('.filter-btn');
+    const sections = document.querySelectorAll('.cat-section, .featured');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        sections.forEach(sec => {
+          const cats = (sec.dataset.cat || '').split(' ');
+          sec.classList.toggle('hidden-cat', f !== 'all' && !cats.includes(f));
+        });
+        // Featured shots filter too
+        document.querySelectorAll('.project-shot').forEach(shot => {
+          const cats = (shot.dataset.cat || '').split(' ');
+          shot.style.display = (f === 'all' || cats.includes(f)) ? '' : 'none';
+        });
+      });
+    });
+    // Reveal on scroll
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } }), { threshold: .1 });
+    document.querySelectorAll('.proj-card, .project-shot').forEach(el => { el.classList.add('reveal'); io.observe(el); });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
